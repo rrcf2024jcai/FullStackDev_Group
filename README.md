@@ -1,4 +1,4 @@
-# Group 8
+# Group 3
 
 Alyssa Urquiola
 Chenyang Ma
