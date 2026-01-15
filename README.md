@@ -1,3 +1,17 @@
+# Group 3
+
+Alyssa Urquiola
+Chenyang Ma
+Jiyu Cai
+
+# Project General Description
+
+- As an employee, I want to record my clock in - clock out… so that my daily work hours are recorded and captured accurately.
+
+- As a manager, I want to track my team’s attendance records through a simple web interface… so that I can monitor their attendance and filed leaves.
+
+- As an HR Associate, I want to generate attendance reports efficiently... so that I can process employees’ payroll accurately.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
