@@ -1,6 +1,6 @@
 # Group 3
 
-Alyssa Urquiola
+- Alyssa Urquiola
 Chenyang Ma
 Jiyu Cai
 
