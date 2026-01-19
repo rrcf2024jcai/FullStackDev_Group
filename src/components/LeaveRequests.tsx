@@ -53,7 +53,7 @@ const LeaveRequests: React.FC = () => {
     }
   ];
 
-  return (
+return (
     // Main container for the component
     <section className="leave-requests-panel">
       <header className="panel-header">
@@ -111,3 +111,4 @@ const LeaveRequests: React.FC = () => {
 };
 
 export default LeaveRequests;
+
