@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import ClockInOut from "./components/ClockIn-Out_alyssa/ClockInOut";
 import EmployeeList from "./components/component_chenyang/EmployeeList";
