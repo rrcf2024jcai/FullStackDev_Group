@@ -1,4 +1,3 @@
-import React from "react";
 import "./LeaveRequests.css";
 
 interface LeaveRequest {id: number; employeeName: string; department: string;
@@ -6,7 +5,6 @@ interface LeaveRequest {id: number; employeeName: string; department: string;
   reason: string;}
 
 const LeaveRequests: React.FC = () => {
-  // Mock data representing leave requests
   const requests: LeaveRequest[] = [
     {id: 101, employeeName: "Zoë Robins",department: "Administration",type: "Vacation",
     dates: "Feb 10 - Feb 15, 2026",status: "Pending",reason: "Annual family trip",},
