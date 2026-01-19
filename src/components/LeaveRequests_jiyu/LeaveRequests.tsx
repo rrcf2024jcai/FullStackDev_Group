@@ -1,4 +1,3 @@
-import React from "react";
 import "./LeaveRequests.css";
 
 interface LeaveRequest {id: number; employeeName: string; department: string;
