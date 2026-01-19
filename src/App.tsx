@@ -1,34 +1,39 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import ClockInOut from "./components/ClockIn-Out_alyssa/ClockInOut";
+import EmployeeList from "./components/component_chenyang/EmployeeList";
+import LeaveRequests from "./components/LeaveRequests_jiyu/LeaveRequests";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app-container">
+      {/* Main Dashboard Header */}
+      <header className="main-header">
+        <h1>PIXELL-River Financial Dashboard</h1>
+        <span className="user-info">Admin View</span>
+      </header>
+
+      <main className="dashboard-content">
+        {/* Widget 1: Time Tracking */}
+        <div className="widget-container">
+          <ClockInOut />
+        </div>
+
+        {/* Widget 2: Employee Directory */}
+        <div className="widget-container">
+          <EmployeeList />
+        </div>
+
+        {/* Widget 3: Leave Management */}
+        <div className="widget-container">
+          <LeaveRequests />
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="main-footer">
+        <p>&copy; 2026 PIXELL-River Financial Systems. Internal Use Only.</p>
+      </footer>
+    </div>
   );
 }
 
