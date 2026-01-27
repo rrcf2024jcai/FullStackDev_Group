@@ -1,39 +1,48 @@
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import ClockInOut from "./components/ClockIn-Out_alyssa/ClockInOut";
-import EmployeeList from "./components/component_chenyang/EmployeeList";
-import LeaveRequests from "./components/LeaveRequests_jiyu/LeaveRequests";
+import HomePage from "./pages/HomePage/HomePage";
+import EmployeePage from "./pages/EmployeePage/EmployeePage";
+import TimePage from "./pages/TimePage/TimePage";
+import LeavePage from "./pages/LeavePage/LeavePage";
 
 function App() {
+  // T.3: Shared state - current logged in user
+  const [currentUser, setCurrentUser] = useState("Admin");
+
   return (
-    <div className="app-container">
-      {/* Main Dashboard Header */}
-      <header className="main-header">
-        <h1>PIXELL-River Financial Dashboard</h1>
-        <span className="user-info">Admin View</span>
-      </header>
+    <BrowserRouter>
+      <div className="app-container">
+        {/* Main Dashboard Header */}
+        <header className="main-header">
+          <h1>PIXELL-River Financial Dashboard</h1>
+          <span className="user-info">Logged in as: {currentUser}</span>
+        </header>
 
-      <main className="dashboard-content">
-        {/* Widget 1: Time Tracking */}
-        <div className="widget-container">
-          <ClockInOut />
-        </div>
+        {/* Navigation */}
+        <nav className="main-nav">
+          <Link to="/">Home</Link>
+          <Link to="/employees">Employees</Link>
+          <Link to="/time">Time Tracking</Link>
+          <Link to="/leave">Leave Requests</Link>
+        </nav>
 
-        {/* Widget 2: Employee Directory */}
-        <div className="widget-container">
-          <EmployeeList />
-        </div>
+        {/* Routes */}
+        <main className="dashboard-content">
+          <Routes>
+            <Route path="/" element={<HomePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+            <Route path="/employees" element={<EmployeePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+            <Route path="/time" element={<TimePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+            <Route path="/leave" element={<LeavePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          </Routes>
+        </main>
 
-        {/* Widget 3: Leave Management */}
-        <div className="widget-container">
-          <LeaveRequests />
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="main-footer">
-        <p>&copy; 2026 PIXELL-River Financial Systems. Internal Use Only.</p>
-      </footer>
-    </div>
+        {/* Footer */}
+        <footer className="main-footer">
+          <p>&copy; 2026 PIXELL-River Financial Systems. Internal Use Only.</p>
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
