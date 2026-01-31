@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SharedStateProps, Employee } from "../../types";
 import EmployeeList from "../../components/component_chenyang/EmployeeList";
+import SearchForm from "../../components/component_chenyang/SearchForm";
 
 // Initial employee data (moved from EmployeeList)
 const initialEmployees: Employee[] = [
@@ -24,6 +25,14 @@ const initialEmployees: Employee[] = [
 function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
   // State for employee list
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
+
+  // State for search 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filter employees based on search term
+  const filteredEmployees = employees.filter((emp) =>
+    emp.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // Delete employee function
   const handleDelete = (id: number) => {
@@ -50,8 +59,11 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
         </select>
       </div>
 
-      {/* Employee List with delete function */}
-      <EmployeeList employees={employees} onDelete={handleDelete} />
+      {/* Search Form (I.2) */}
+      <SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
+      {/* Employee List - now shows filtered results */}
+      <EmployeeList employees={filteredEmployees} onDelete={handleDelete} />
     </section>
   );
 }
