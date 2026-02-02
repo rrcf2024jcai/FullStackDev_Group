@@ -37,7 +37,7 @@ export default function ClockInOut() {
         action: actionLabel,
         time: timestamp,
         location: notes.trim() // I.2 Form - Added user-text area
-        },
+        }
     ]);
 
     // I.2 Form - Add Clocked-In success message
@@ -86,9 +86,11 @@ export default function ClockInOut() {
                 </p>
             )}
 
-            <p>
-            {notes || ""}
-            </p>
+            {success && (
+                <p style={{ color: "blue", marginTop: "4px", fontStyle: "italic"}}>
+                    {success}
+                </p>
+            )}
         </div>
 
         <ul>
@@ -112,8 +114,7 @@ export default function ClockInOut() {
         <ul>
             {logs.map((log) => (
             <li key={log.id}>
-                {log.action} at {log.time}
-
+                {log.action} at {log.time} - Location: {log.location}
                 <button
                     style={{ marginLeft: "10px"}}
                     onClick={() => removeLog(log.id)}
