@@ -36,7 +36,7 @@ function AddEmployeeForm({ onAdd }: AddEmployeeFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-employee-form">
       <h3>Add New Employee</h3>
       <div>
         <label htmlFor="name">Name: </label>

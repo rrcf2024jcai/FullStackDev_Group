@@ -1,0 +1,172 @@
+/* Employee Page Styles - Following STYLEGUIDE.md */
+
+.employee-page {
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+    background-color: #F1F5F9;
+    min-height: 100vh;
+  }
+  
+  .employee-page h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1E3A8A;
+    margin-bottom: 20px;
+  }
+  
+  .employee-page h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1E3A8A;
+    margin-bottom: 15px;
+  }
+  
+  .employee-page p {
+    font-size: 16px;
+    color: #64748B;
+  }
+  
+  /* User Switch Section */
+  .user-switch {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+  }
+  
+  .user-switch label {
+    font-size: 16px;
+    color: #64748B;
+    margin-right: 10px;
+  }
+  
+  .user-switch select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #64748B;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Add Employee Form */
+  .add-employee-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .add-employee-form div {
+    margin-bottom: 10px;
+  }
+  
+  .add-employee-form label {
+    display: inline-block;
+    width: 100px;
+    font-size: 16px;
+    color: #64748B;
+  }
+  
+  .add-employee-form input {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #64748B;
+    border-radius: 4px;
+    width: 200px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .add-employee-form button {
+    background-color: #0D9488;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin-top: 10px;
+  }
+  
+  .add-employee-form button:hover {
+    background-color: #0B7C72;
+  }
+  
+  /* Search Form */
+  .search-form {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .search-form label {
+    font-size: 16px;
+    color: #64748B;
+    margin-right: 10px;
+  }
+  
+  .search-form input {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #64748B;
+    border-radius: 4px;
+    width: 250px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+ /* Employee List */
+.employee-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .employee-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .employee-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 16px;
+    color: #64748B;
+  }
+  
+  .employee-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .employee-list li span {
+    flex-grow: 1;
+  }
+  
+  .employee-list button {
+    background-color: #EA580C;
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+  
+  .employee-list button:hover {
+    background-color: #C94A0A;
+  }
+  
+  .employee-list p {
+    font-size: 16px;
+    color: #64748B;
+  }

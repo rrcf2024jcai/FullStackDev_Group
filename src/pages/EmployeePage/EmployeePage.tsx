@@ -3,6 +3,7 @@ import { SharedStateProps, Employee } from "../../types";
 import EmployeeList from "../../components/component_chenyang/EmployeeList";
 import SearchForm from "../../components/component_chenyang/SearchForm";
 import AddEmployeeForm from "../../components/component_chenyang/AddEmployeeForm";
+import "./EmployeePage.css";
 
 // Initial employee data
 const initialEmployees: Employee[] = [
@@ -27,7 +28,7 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
   // State for employee list
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
 
-  // State for search (I.2)
+  // State for search 
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter employees based on search term
@@ -40,20 +41,18 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
     setEmployees(employees.filter((emp) => emp.id !== id));
   };
 
-  // Add employee function (I.3)
+  // Add employee function 
   const handleAdd = (newEmployee: Employee) => {
     setEmployees([...employees, newEmployee]);
   };
 
   return (
-    <section>
+    <section className="employee-page">
       <h2>Employee Directory</h2>
 
       {/* Display shared state */}
-      <p>Viewing as: {currentUser}</p>
-
-      {/* Modify shared state */}
-      <div>
+      <div className="user-switch">
+        <p>Viewing as: {currentUser}</p>
         <label>Switch User: </label>
         <select
           value={currentUser}
@@ -65,10 +64,10 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
         </select>
       </div>
 
-      {/* Add Employee Form (I.3) */}
+      {/* Add Employee Form */}
       <AddEmployeeForm onAdd={handleAdd} />
 
-      {/* Search Form (I.2) */}
+      {/* Search Form */}
       <SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Employee List - shows filtered results with delete */}
