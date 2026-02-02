@@ -2,11 +2,6 @@ import { useState } from "react";
 import ClockForm from "./ClockForm";
 
 export default function ClockInOut() {
-    const actions = [
-        {id: 1, label: "Clock In"},
-        {id: 2, label: "Clock Out"},
-    ];
-
     // Components state
     const [isClockedIn, setIsClockedIn] = useState(false);
     // NotesForm component
