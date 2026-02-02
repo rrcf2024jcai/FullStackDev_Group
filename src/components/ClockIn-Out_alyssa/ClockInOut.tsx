@@ -18,7 +18,7 @@ export default function ClockInOut() {
 
     // Handle button click
     const handleAction = (actionLabel: string) => {
-        // I.2 Form - Validation notes for Clock Out. Use strict comparison
+        // Validation notes for Clock Out. Use strict comparison
         if (actionLabel === "Clock Out" && notes.trim() === "") {
             setError("Please enter your location.");
             setSuccess("");
