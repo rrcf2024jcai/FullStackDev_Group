@@ -2,8 +2,9 @@ import { useState } from "react";
 import { SharedStateProps, Employee } from "../../types";
 import EmployeeList from "../../components/component_chenyang/EmployeeList";
 import SearchForm from "../../components/component_chenyang/SearchForm";
+import AddEmployeeForm from "../../components/component_chenyang/AddEmployeeForm";
 
-// Initial employee data (moved from EmployeeList)
+// Initial employee data
 const initialEmployees: Employee[] = [
   { id: 1, name: "Chenyang Ma", role: "Manager", department: "Human Resources" },
   { id: 2, name: "Jiyu Cai", role: "Manager", department: "Information Technology" },
@@ -26,7 +27,7 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
   // State for employee list
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
 
-  // State for search 
+  // State for search (I.2)
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter employees based on search term
@@ -36,21 +37,26 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
 
   // Delete employee function
   const handleDelete = (id: number) => {
-    setEmployees(employees.filter(emp => emp.id !== id));
+    setEmployees(employees.filter((emp) => emp.id !== id));
+  };
+
+  // Add employee function (I.3)
+  const handleAdd = (newEmployee: Employee) => {
+    setEmployees([...employees, newEmployee]);
   };
 
   return (
     <section>
       <h2>Employee Directory</h2>
-      
+
       {/* Display shared state */}
       <p>Viewing as: {currentUser}</p>
-      
+
       {/* Modify shared state */}
       <div>
         <label>Switch User: </label>
-        <select 
-          value={currentUser} 
+        <select
+          value={currentUser}
           onChange={(e) => setCurrentUser(e.target.value)}
         >
           <option value="Admin">Admin</option>
@@ -59,10 +65,13 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
         </select>
       </div>
 
+      {/* Add Employee Form (I.3) */}
+      <AddEmployeeForm onAdd={handleAdd} />
+
       {/* Search Form (I.2) */}
       <SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {/* Employee List - now shows filtered results */}
+      {/* Employee List - shows filtered results with delete */}
       <EmployeeList employees={filteredEmployees} onDelete={handleDelete} />
     </section>
   );
