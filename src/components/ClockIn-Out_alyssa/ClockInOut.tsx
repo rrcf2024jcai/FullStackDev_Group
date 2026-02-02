@@ -11,20 +11,22 @@ export default function ClockInOut() {
     // NotesForm component
     const [notes, setNotes] = useState("");
     const [error, setError] = useState("");
-
+    const [success, setSuccess] = useState("");
     const [logs, setLogs] = useState<
-        {id: number; action: String; time: string}[]
+        {id: number; action: String; time: string; location: string}[]
     >([]);
 
     // Handle button click
     const handleAction = (actionLabel: string) => {
-        // Validation notes for Clock Out. Use strict comparison
+        // I.2 Form - Validation notes for Clock Out. Use strict comparison
         if (actionLabel === "Clock Out" && notes.trim() === "") {
-            setError("Enter a note before clocking out.");
+            setError("Please enter your location.");
+            setSuccess("");
             return;
         } 
 
         setError("");
+        setSuccess("");
 
         const timestamp = new Date().toLocaleTimeString();
     // Add log entry so setLogs is actually used
@@ -33,12 +35,21 @@ export default function ClockInOut() {
         {
         id: prev.length + 1,
         action: actionLabel,
-        time: timestamp
-        }
+        time: timestamp,
+        location: notes.trim() // I.2 Form - Added user-text area
+        },
     ]);
 
-    if (actionLabel === "Clock In") setIsClockedIn(true);
-    if (actionLabel === "Clock Out") setIsClockedIn(false);
+    // I.2 Form - Add Clocked-In success message
+    if (actionLabel === "Clock In") {
+        setIsClockedIn(true);
+        setSuccess("Successfully clocked in!");
+    }
+
+    if (actionLabel === "Clock Out") {
+        setIsClockedIn(false);
+        setSuccess("Successfully clocked out! Please check Attendance Log.")
+    }
 
     // Clearing notes
     setNotes("");
@@ -58,15 +69,15 @@ export default function ClockInOut() {
             <strong>{isClockedIn ? "Currently Clocked In" : "Not Clocked In"}</strong>
         </p>
         
-        <div className="NotesForm" style={{ marginBottom: "1rem" }}>
-            <label htmlFor="notes">Enter your location:</label>
+        <div className="AddForm" style={{ marginBottom: "1rem" }}>
+            <label htmlFor="info">Enter your location:</label>
 
             <input
-                id="notes"
+                id="info"
                 type="text"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Office/Remote/Site"
+                placeholder="Office/Home/Site"
             />
 
             {error && (
@@ -79,7 +90,6 @@ export default function ClockInOut() {
             {notes || ""}
             </p>
         </div>
-
 
         <ul>
             {actions.map((action) => (
