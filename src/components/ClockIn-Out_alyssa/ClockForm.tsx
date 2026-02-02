@@ -14,7 +14,7 @@ export default function ClockForm({
   handleAction
 }: ClockFormProps) {
   return (
-    <div className="AddForm" style={{ marginBottom: "1rem" }}>
+    <div className="AddForm" style={{ marginBottom: "1rem", width: "30%", border: "2px solid grey" }}>
       <label htmlFor="notes">Enter your location:</label>
 
       <input

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ClockForm from "./ClockForm";
 
 export default function ClockInOut() {
     const actions = [
@@ -61,7 +62,7 @@ export default function ClockInOut() {
     };
 
     return (
-        <section className="clock-in-out">
+        <section>
         <h2>Time & Attendance</h2>
 
         <p>
@@ -69,46 +70,13 @@ export default function ClockInOut() {
             <strong>{isClockedIn ? "Currently Clocked In" : "Not Clocked In"}</strong>
         </p>
         
-        <div className="AddForm" style={{ marginBottom: "1rem" }}>
-            <label htmlFor="info">Enter your location:</label>
-
-            <input
-                id="info"
-                type="text"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="Office/Home/Site"
-            />
-
-            {error && (
-                <p style={{ color: "red", marginTop: "4px", fontStyle: "italic" }}>
-                {error}
-                </p>
-            )}
-
-            {success && (
-                <p style={{ color: "blue", marginTop: "4px", fontStyle: "italic"}}>
-                    {success}
-                </p>
-            )}
-        </div>
-
-        <ul>
-            {actions.map((action) => (
-            <li key={action.id}>
-                <button
-                aria-label={action.label}
-                disabled={
-                    (action.label === "Clock In" && isClockedIn) ||
-                    (action.label === "Clock Out" && !isClockedIn)
-                }
-                onClick={() => handleAction(action.label)}
-                >
-                {action.label}
-                </button>
-            </li>
-            ))}
-        </ul>
+        <ClockForm
+            notes={notes}
+            setNotes={setNotes}
+            error={error}
+            success={success}
+            handleAction={handleAction}
+        />
 
         <h3>Attendance Log</h3>
         <ul>
