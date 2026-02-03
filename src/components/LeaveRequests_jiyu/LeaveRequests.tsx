@@ -12,7 +12,8 @@ export default function LeaveRequests() {
   // List State
   const [requests, setRequests] = useState<LeaveRequest[]>([
     { id: 1, type: "Vacation", date: "2026-02-15", reason: "Family trip" },
-    { id: 2, type: "Sick Leave", date: "2026-01-20", reason: "Flu" }]);
+    { id: 2, type: "Sick Leave", date: "2026-01-20", reason: "Flu" }
+  ]);
 
   // Form State
   const [newType, setNewType] = useState("Vacation");
@@ -26,6 +27,7 @@ export default function LeaveRequests() {
     if (!newDate || !newReason) {
       alert("Please fill in the date and reason!");
       return;}
+      
 
     const newItem: LeaveRequest = {
       id: Date.now(), 
@@ -36,24 +38,28 @@ export default function LeaveRequests() {
     setRequests([...requests, newItem]);
 
     setNewDate("");
-    setNewReason("");
-  };
+    setNewReason("");};
 
   // Removal
   const handleDelete = (idToDelete: number) => {
-    setRequests(requests.filter(item => item.id !== idToDelete));
-  };
+    setRequests(requests.filter(item => item.id !== idToDelete));};
 
   return (
     <div className="leave-container">
       <h1>Leave Requests</h1>
 
+      {/*Form Component */}
       <div className="form-box">
         <h3>New Request</h3>
         <form onSubmit={handleAdd}>
+          
           <div className="input-group">
-            <label>Type:</label>
-            <select value={newType} onChange={(e) => setNewType(e.target.value)}>
+            <label htmlFor="leave-type">Type:</label>
+            <select 
+              id="leave-type"
+              value={newType} 
+              onChange={(e) => setNewType(e.target.value)}
+            >
               <option value="Vacation">Vacation</option>
               <option value="Sick Leave">Sick Leave</option>
               <option value="Personal">Personal</option>
@@ -61,8 +67,9 @@ export default function LeaveRequests() {
           </div>
 
           <div className="input-group">
-            <label>Date:</label>
+            <label htmlFor="leave-date">Date:</label>
             <input 
+              id="leave-date"
               type="date" 
               value={newDate} 
               onChange={(e) => setNewDate(e.target.value)} 
@@ -70,8 +77,9 @@ export default function LeaveRequests() {
           </div>
 
           <div className="input-group">
-            <label>Reason:</label>
+            <label htmlFor="leave-reason">Reason:</label>
             <input 
+              id="leave-reason"
               type="text" 
               placeholder="Why?" 
               value={newReason} 
@@ -83,7 +91,7 @@ export default function LeaveRequests() {
         </form>
       </div>
 
-      {/*List Removal*/}
+      {/*Removal */}
       <div className="list-box">
         <h3>My History</h3>
         <ul>
@@ -96,6 +104,8 @@ export default function LeaveRequests() {
               <button 
                 className="btn-delete" 
                 onClick={() => handleDelete(item.id)}
+                // Add aria-label for screen readers
+                aria-label={`Delete request for ${item.type} on ${item.date}`}
               >
                 Delete
               </button>

@@ -7,16 +7,17 @@ import TimePage from "./pages/TimePage/TimePage";
 import LeavePage from "./pages/LeavePage/LeavePage";
 
 function App() {
-  // T.3: Shared state - current logged in user
+  // Shared state - current logged in user
   const [currentUser, setCurrentUser] = useState("Admin");
 
   return (
     <BrowserRouter>
       <div className="app-container">
-        {/* Main Dashboard Header */}
-        <header className="main-header">
-          <h1>PIXELL-River Financial Dashboard</h1>
-          <span className="user-info">Logged in as: {currentUser}</span>
+
+        {/* Header with Application Title */}
+        <header className="main-header" style={{ backgroundColor: '#1E3A8A', color: 'white' }}>
+          <h1>TimePilot</h1>
+          <span className="user-info" style={{ opacity: 0.9 }}>Logged in as: {currentUser}</span>
         </header>
 
         {/* Navigation */}
@@ -37,10 +38,13 @@ function App() {
           </Routes>
         </main>
 
-        {/* Footer */}
-        <footer className="main-footer">
-          <p>&copy; 2026 PIXELL-River Financial Systems. Internal Use Only.</p>
+        {/* Footer with Group Member Names */}
+        <footer className="main-footer" style={{ backgroundColor: '#F1F5F9', color: '#333', borderTop: '1px solid #ccc' }}>
+          <p>
+            &copy; 2026 Developed by: <strong>Chenyang Ma, Alyssa Urquiola, Jiyu Cai</strong>
+          </p>
         </footer>
+        
       </div>
     </BrowserRouter>
   );
