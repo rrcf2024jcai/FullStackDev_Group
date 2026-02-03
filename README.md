@@ -158,15 +158,3 @@ export default defineConfig([
   },
 ])
 ```
-### Chenyang Ma
-
-**Sprint 1:**
-- T.5: Style Guide (color palette and typography)
-- I.1: EmployeeList component
-
-**Sprint 2:**
-- T.1: Multi-page Routing (react-router-dom)
-- T.3: Shared State Across Pages (currentUser)
-- I.1: EmployeePage (Feature Page)
-- I.2: SearchForm (real-time employee filtering)
-- I.3: AddEmployeeForm + Delete functionality
