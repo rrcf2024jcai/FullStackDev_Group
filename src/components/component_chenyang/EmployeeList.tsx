@@ -7,7 +7,7 @@ interface EmployeeListProps {
 
 function EmployeeList({ employees, onDelete }: EmployeeListProps) {
   return (
-    <section>
+    <section className="employee-list">
       <h3>Employee List</h3>
       {employees.length === 0 ? (
         <p>No employees found.</p>
@@ -15,7 +15,7 @@ function EmployeeList({ employees, onDelete }: EmployeeListProps) {
         <ul>
           {employees.map((employee) => (
             <li key={employee.id}>
-              {employee.name} - {employee.role} - {employee.department}
+              <span>{employee.name} - {employee.role} - {employee.department}</span>
               <button onClick={() => onDelete(employee.id)}>Delete</button>
             </li>
           ))}
