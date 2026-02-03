@@ -12,6 +12,7 @@ function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
       {/* Modify shared state */}
       <div>
         <label>Switch User: </label>
+        、
         <select 
           value={currentUser} 
           onChange={(e) => setCurrentUser(e.target.value)}

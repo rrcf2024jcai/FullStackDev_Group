@@ -1,77 +1,118 @@
+import { useState } from "react";
 import "./LeaveRequests.css";
 
-interface LeaveRequest {id: number; employeeName: string; department: string;
-  type: string; dates: string; status: "Pending" | "Approved" | "Rejected";
+interface LeaveRequest {
+  id: number;
+  type: string;
+  date: string;
   reason: string;}
 
-const LeaveRequests: React.FC = () => {
-  const requests: LeaveRequest[] = [
-    {id: 101, employeeName: "Zoë Robins",department: "Administration",type: "Vacation",
-    dates: "Feb 10 - Feb 15, 2026",status: "Pending",reason: "Annual family trip",},
-    {id: 102,employeeName: "Graham Greene",department: "Information Technology",
-    type: "Sick Leave",dates: "Jan 18, 2026",status: "Approved",
-    reason: "Medical appointment",},
-    {id: 103,employeeName: "Priyanka Bose",department: "Banking Operations",
-    type: "Personal",dates: "Jan 20, 2026",status: "Rejected",
-    reason: "High volume period, staffing required",},
-    {id: 104,employeeName: "Jennifer Rodriguez",department: "Information Technology",
-    type: "Vacation",dates: "Mar 01 - Mar 05, 2026",status: "Pending",
-    reason: "Trip to Vancouver branch",},
-  ];
+export default function LeaveRequests() {
+  
+  // List State
+  const [requests, setRequests] = useState<LeaveRequest[]>([
+    { id: 1, type: "Vacation", date: "2026-02-15", reason: "Family trip" },
+    { id: 2, type: "Sick Leave", date: "2026-01-20", reason: "Flu" }
+  ]);
+
+  // Form State
+  const [newType, setNewType] = useState("Vacation");
+  const [newDate, setNewDate] = useState("");
+  const [newReason, setNewReason] = useState("");
+
+  // Updating State
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault(); 
+
+    if (!newDate || !newReason) {
+      alert("Please fill in the date and reason!");
+      return;}
+      
+
+    const newItem: LeaveRequest = {
+      id: Date.now(), 
+      type: newType,
+      date: newDate,
+      reason: newReason};
+
+    setRequests([...requests, newItem]);
+
+    setNewDate("");
+    setNewReason("");};
+
+  // Removal
+  const handleDelete = (idToDelete: number) => {
+    setRequests(requests.filter(item => item.id !== idToDelete));};
 
   return (
-    <section className="leave-requests-panel">
-      <header className="panel-header">
-        <h2>Leave Requests</h2>
-        <span className="pending-count">
-          {requests.filter((r) => r.status === "Pending").length} Pending
-        </span>
-      </header>
+    <div className="leave-container">
+      <h1>Leave Requests</h1>
 
-      <div className="requests-list">
-        {requests.map((request) => (
-          <div key={request.id} className="request-card">
-            <div className="card-top">
-              <div className="user-info">
-                <h3>{request.employeeName}</h3>
-                <span className="dept-label">{request.department}</span>
-              </div>
-              <div className={`status-badge ${request.status.toLowerCase()}`}>
-                {request.status}
-              </div>
-            </div>
-
-            <div className="card-details">
-              <p>
-                <strong>Type:</strong> {request.type}
-              </p>
-              <p>
-                <strong>Dates:</strong> {request.dates}
-              </p>
-              <p className="reason">"{request.reason}"</p>
-            </div>
-
-            <div className="card-actions">
-              <button
-                className="btn-approve"
-                disabled={request.status !== "Pending"}
-                title="Approve this request"
-              >
-                Approve
-              </button>
-              <button
-                className="btn-reject"
-                disabled={request.status !== "Pending"}
-                title="Reject this request"
-              >
-                Reject
-              </button>
-            </div>
+      {/*Form Component */}
+      <div className="form-box">
+        <h3>New Request</h3>
+        <form onSubmit={handleAdd}>
+          
+          <div className="input-group">
+            <label htmlFor="leave-type">Type:</label>
+            <select 
+              id="leave-type"
+              value={newType} 
+              onChange={(e) => setNewType(e.target.value)}
+            >
+              <option value="Vacation">Vacation</option>
+              <option value="Sick Leave">Sick Leave</option>
+              <option value="Personal">Personal</option>
+            </select>
           </div>
-        ))}
-      </div>
-    </section>
-  );
-};
 
-export default LeaveRequests;
+          <div className="input-group">
+            <label htmlFor="leave-date">Date:</label>
+            <input 
+              id="leave-date"
+              type="date" 
+              value={newDate} 
+              onChange={(e) => setNewDate(e.target.value)} 
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="leave-reason">Reason:</label>
+            <input 
+              id="leave-reason"
+              type="text" 
+              placeholder="Why?" 
+              value={newReason} 
+              onChange={(e) => setNewReason(e.target.value)} 
+            />
+          </div>
+
+          <button type="submit" className="btn-add">Submit</button>
+        </form>
+      </div>
+
+      {/*Removal */}
+      <div className="list-box">
+        <h3>My History</h3>
+        <ul>
+          {requests.map((item) => (
+            <li key={item.id} className="request-item">
+              <div className="info">
+                <strong>{item.type}</strong>
+                <span>{item.date} - {item.reason}</span>
+              </div>
+              <button 
+                className="btn-delete" 
+                onClick={() => handleDelete(item.id)}
+                // Add aria-label for screen readers
+                aria-label={`Delete request for ${item.type} on ${item.date}`}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
