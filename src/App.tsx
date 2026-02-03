@@ -39,7 +39,7 @@ function App() {
         </main>
 
         {/* Footer with Group Member Names */}
-        <footer className="main-footer" style={{ backgroundColor: '#F1F5F9', color: '#333', borderTop: '1px solid #ccc' }}>
+        <footer className="main-footer" style={{ backgroundColor: '#F1F5F9', color: '#333', borderTop: '1px solid #ccc'}}>
           <p>
             &copy; 2026 Developed by: <strong>Chenyang Ma, Alyssa Urquiola, Jiyu Cai</strong>
           </p>
