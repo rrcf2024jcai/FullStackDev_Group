@@ -1,152 +1,100 @@
-/* Container styling to keep the component neat */
-.leave-requests-panel {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 24px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.leave-container {font-family: 'Inter', sans-serif;
   max-width: 600px;
   margin: 20px auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  padding: 20px;
+  background-color: #F1F5F9; 
+  border-radius: 8px;}
 
-/* Header layout */
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #f0f0f0;
+h1 {color: #1E3A8A; /* Primary Blue */
+  text-align: center;}
+
+h3 {
+  color: #1E3A8A;
+  border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
 }
 
-.panel-header h2 {
-  margin: 0;
-  color: #2c3e50;
-  font-size: 1.5rem;
-}
-
-.pending-count {
-  background-color: #e74c3c;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-/* Card styling */
-.request-card {
-  border: 1px solid #e1e4e8;
+.form-box {
+  background: white;
+  padding: 20px;
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background-color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.request-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+.input-group {
+  margin-bottom: 15px;
 }
 
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-
-.user-info h3 {
-  margin: 0 0 4px 0;
-  font-size: 1.1rem;
-  color: #34495e;
-}
-
-.dept-label {
-  font-size: 0.8rem;
-  color: #7f8c8d;
-  background-color: #f5f6fa;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-/* Status Badge Colors */
-.status-badge {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.8rem;
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
   font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: #64748B; 
 }
 
-.status-badge.pending {
-  background-color: #fff3cd;
-  color: #856404;
+.input-group input, 
+.input-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
 }
 
-.status-badge.approved {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-badge.rejected {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-/* Details section */
-.card-details p {
-  margin: 4px 0;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.card-details .reason {
-  font-style: italic;
-  color: #666;
-  margin-top: 8px;
-  padding-left: 10px;
-  border-left: 3px solid #eee;
-}
-
-/* Action buttons */
-.card-actions {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-}
-
-button {
-  flex: 1;
-  padding: 8px 0;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
-}
-
-.btn-approve {
-  background-color: #3498db;
+.btn-add {
+  width: 100%;
+  background-color: #1E3A8A; 
   color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-.btn-approve:hover:not(:disabled) {
-  background-color: #2980b9;
+.btn-add:hover {
+  opacity: 0.9;
 }
 
-.btn-reject {
-  background-color: #ecf0f1;
-  color: #7f8c8d;
+/* List */
+.list-box ul {
+  list-style: none;
+  padding: 0;
 }
 
-.btn-reject:hover:not(:disabled) {
-  background-color: #bdc3c7;
-  color: #2c3e50;
+.request-item {
+  background: white;
+  border-bottom: 1px solid #eee;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 6px;
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info span {
+  color: #64748B; /* Gray */
+  font-size: 14px;
+}
+
+.btn-delete {
+  background-color: white;
+  color: #EA580C; /* Orange (Warning color) */
+  border: 1px solid #EA580C;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background-color: #fff7ed;
 }

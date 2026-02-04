@@ -1,0 +1,97 @@
+/* Clock Activity Page Layout */
+
+.clock-page {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #F1F5F9;
+  min-height: 30vh;
+}
+
+.clock-container {
+  width: 50%;
+  min-width: 350px;
+  background-color: #F1F5F9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Headings */
+h1, h2, h3, p {
+  color: #1E3A8A;
+  font-weight: 700;
+  text-align: left;
+}
+
+h3 {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* White form box */
+.form-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Input group */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #64748B;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Button row */
+.button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+/* Compact Clock In / Clock Out buttons */
+.btn-add {
+  background-color: #1E3A8A;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  width: auto;
+  white-space: nowrap;
+}
+
+.btn-add:hover {
+  opacity: 0.9;
+}
+
+/* Messages */
+.error-text {
+  color: #DC2626;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.success-text {
+  color: #1E40AF;
+  font-size: 14px;
+  margin-top: 10px;
+}
