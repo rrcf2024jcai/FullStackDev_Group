@@ -7,23 +7,24 @@
   padding: 0;
 }
 
+/* App container */
 .app-container {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7f6; /* Light grey background for better contrast */
+  background-color: #f4f7f6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header Styling */
+/* Header */
 .main-header {
-  background-color: #2c3e50; /* Corporate dark blue */
+  background-color: #2c3e50;
   color: #ecf0f1;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .main-header h1 {
@@ -36,15 +37,11 @@
   opacity: 0.9;
 }
 
-/* Dashboard Layout 
-  Using CSS Grid here because it handles 2D layouts better than Flexbox.
-  The 'auto-fit' property makes it responsive without media queries.
-*/
+/* Dashboard layout */
 .dashboard-content {
-  flex: 1; /* Pushes the footer down to the bottom */
+  flex: 1;
   padding: 2rem;
   display: grid;
-  /* Columns will be at least 380px wide, or stretch to fill space */
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 2rem;
   max-width: 1400px;
@@ -52,7 +49,7 @@
   width: 100%;
 }
 
-/* Wrapper for individual components to give them a "card" look */
+/* Card-style widgets */
 .widget-container {
   background: white;
   border-radius: 8px;
@@ -60,88 +57,26 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the component inside the card */
-}
-
-/* Footer Styling */
-.main-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #fff;
-  color: #95a5a6;
-  font-size: 0.85rem;
-  border-top: 1px solid #e0e0e0;
-  margin-top: auto;
-}
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.app-container {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7f6; /* Light grey background for better contrast */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header Styling */
-.main-header {
-  background-color: #2c3e50; /* Corporate dark blue */
-  color: #ecf0f1;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-.main-header h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.user-info {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-/* Dashboard Layout 
-  Using CSS Grid here because it handles 2D layouts better than Flexbox.
-  The 'auto-fit' property makes it responsive without media queries.
-*/
-.dashboard-content {
-  flex: 1; /* Pushes the footer down to the bottom */
-  padding: 2rem;
-  display: grid;
-  /* Columns will be at least 380px wide, or stretch to fill space */
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Wrapper for individual components to give them a "card" look */
-.widget-container {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers the component inside the card */
-}
-
-/* Footer Styling */
+/* Footer */
 .main-footer {
   text-align: center;
-  padding: 1rem;
+  padding: 20px 0;
   background-color: #fff;
   color: #95a5a6;
   font-size: 0.85rem;
   border-top: 1px solid #e0e0e0;
   margin-top: auto;
+
+  /* Ensures perfect centering */
+  display: flex;
+  justify-content: center;
+}
+
+.main-footer p {
+  max-width: 1400px;
+  width: 100%;
+  text-align: center;
 }

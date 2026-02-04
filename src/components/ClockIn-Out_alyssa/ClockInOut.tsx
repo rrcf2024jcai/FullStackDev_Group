@@ -16,7 +16,7 @@ export default function ClockInOut() {
     const handleAction = (actionLabel: string) => {
         // Validation notes for Clock Out. Use strict comparison
         if (actionLabel === "Clock Out" && notes.trim() === "") {
-            setError("Please enter your location.");
+            setError("Please enter your location to complete your clock-out.");
             setSuccess("");
             return;
         } 
@@ -39,12 +39,12 @@ export default function ClockInOut() {
     // I.2 Form - Add Clocked-In success message
     if (actionLabel === "Clock In") {
         setIsClockedIn(true);
-        setSuccess("Successfully clocked in!");
+        setSuccess("Clock-in recorded. Please remember to clock out at the end of your work period.");
     }
 
     if (actionLabel === "Clock Out") {
         setIsClockedIn(false);
-        setSuccess("Successfully clocked out! Please check Attendance Log.")
+        setSuccess("Great work today! You’re clocked out. Your Attendance Log has been updated.")
     }
 
     // Clearing notes
@@ -58,8 +58,6 @@ export default function ClockInOut() {
 
     return (
         <section>
-        <h2>Time & Attendance</h2>
-
         <p>
             Status:{" "}
             <strong>{isClockedIn ? "Currently Clocked In" : "Not Clocked In"}</strong>
