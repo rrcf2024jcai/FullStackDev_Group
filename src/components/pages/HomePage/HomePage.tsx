@@ -1,14 +1,13 @@
-import { SharedStateProps } from "../../types";
-import ClockInOut from "../../components/ClockIn-Out_alyssa/ClockInOut";
-import "./TimePage.css";
+import { SharedStateProps } from "../../../types";
 
-function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
+function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
   return (
     <section>
-      <h2>Time Page</h2>
+      <h2>Welcome to PIXELL-River Financial Dashboard</h2>
+      <p>Select a section from the navigation to get started.</p>
       
       {/* Display shared state */}
-      <p>Viewing as: {currentUser}</p>
+      <p>Current User: {currentUser}</p>
       
       {/* Modify shared state */}
       <div>
@@ -22,10 +21,8 @@ function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
           <option value="Employee">Employee</option>
         </select>
       </div>
-
-      <ClockInOut />
     </section>
   );
 }
 
-export default TimePage;
+export default HomePage;

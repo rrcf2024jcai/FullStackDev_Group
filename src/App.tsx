@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import HomePage from "./pages/HomePage/HomePage";
-import EmployeePage from "./pages/EmployeePage/EmployeePage";
-import TimePage from "./pages/TimePage/TimePage";
-import LeavePage from "./pages/LeavePage/LeavePage";
+import HomePage from "./components/pages/HomePage/HomePage";
+import EmployeePage from "./components/pages/EmployeePage/EmployeePage";
+import TimePage from "./components/pages/TimePage/TimePage";
+import LeavePage from "./components/pages/LeavePage/LeavePage";
 
 function App() {
   // Shared state - current logged in user
