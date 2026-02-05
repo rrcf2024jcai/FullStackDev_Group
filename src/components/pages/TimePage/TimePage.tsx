@@ -1,10 +1,11 @@
-import { SharedStateProps } from "../../types";
-import LeaveRequests from "../../components/LeaveRequests_jiyu/LeaveRequests";
+import { SharedStateProps } from "../../../types";
+import ClockInOut from "../../ClockIn-Out_alyssa/ClockInOut";
+import "./TimePage.css";
 
-function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
+function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
   return (
     <section>
-      <h2>Leave Management</h2>
+      <h2>Time Page</h2>
       
       {/* Display shared state */}
       <p>Viewing as: {currentUser}</p>
@@ -22,9 +23,9 @@ function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
         </select>
       </div>
 
-      <LeaveRequests />
+      <ClockInOut />
     </section>
   );
 }
 
-export default LeavePage;
+export default TimePage;

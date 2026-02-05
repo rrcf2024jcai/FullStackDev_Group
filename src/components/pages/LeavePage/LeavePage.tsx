@@ -1,13 +1,13 @@
-import { SharedStateProps } from "../../types";
+import { SharedStateProps } from "../../../types";
+import LeaveRequests from "../../LeaveRequests_jiyu/LeaveRequests";
 
-function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
+function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
   return (
     <section>
-      <h2>Welcome to PIXELL-River Financial Dashboard</h2>
-      <p>Select a section from the navigation to get started.</p>
+      <h2>Leave Management</h2>
       
       {/* Display shared state */}
-      <p>Current User: {currentUser}</p>
+      <p>Viewing as: {currentUser}</p>
       
       {/* Modify shared state */}
       <div>
@@ -21,8 +21,10 @@ function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
           <option value="Employee">Employee</option>
         </select>
       </div>
+
+      <LeaveRequests />
     </section>
   );
 }
 
-export default HomePage;
+export default LeavePage;
