@@ -3,7 +3,7 @@ export interface SharedStateProps {
     setCurrentUser: (user: string) => void;
   }
 
-// Employee type for I.1, I.2, I.3
+// Employee type  
 export interface Employee {
   id: number;
   name: string;
