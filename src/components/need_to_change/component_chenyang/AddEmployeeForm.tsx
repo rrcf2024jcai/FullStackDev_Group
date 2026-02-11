@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Employee } from "../../types";
+import { Employee } from "../../../types";
 
 interface AddEmployeeFormProps {
   onAdd: (employee: Employee) => void;
