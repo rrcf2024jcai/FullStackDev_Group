@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { SharedStateProps, Employee } from "../../../types";
-import EmployeeList from "../../component_chenyang/EmployeeList";
-import SearchForm from "../../component_chenyang/SearchForm";
-import AddEmployeeForm from "../../component_chenyang/AddEmployeeForm";
+import EmployeeList from "../../need_to_change/component_chenyang/EmployeeList";
+import SearchForm from "../../need_to_change/component_chenyang/SearchForm";
+import AddEmployeeForm from "../../need_to_change/component_chenyang/AddEmployeeForm";
 import "./EmployeePage.css";
 
 // Initial employee data
