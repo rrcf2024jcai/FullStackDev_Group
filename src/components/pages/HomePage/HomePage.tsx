@@ -1,6 +1,9 @@
 import { SharedStateProps } from "../../../types";
+import { useEmployees } from "../../../hooks";
 
 function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
+  const { employees } = useEmployees();
+
   return (
     <section>
       <h2>Welcome to PIXELL-River Financial Dashboard</h2>
@@ -21,6 +24,9 @@ function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
           <option value="Employee">Employee</option>
         </select>
       </div>
+
+      {/* Show employee count using useEmployees hook */}
+      <p>Total Employees: {employees.length}</p>
     </section>
   );
 }
