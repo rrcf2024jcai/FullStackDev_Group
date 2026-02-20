@@ -8,11 +8,7 @@ function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
     <section>
       <h2>Welcome to PIXELL-River Financial Dashboard</h2>
       <p>Select a section from the navigation to get started.</p>
-      
-      {/* Display shared state */}
       <p>Current User: {currentUser}</p>
-      
-      {/* Modify shared state */}
       <div>
         <label>Switch User: </label>
         <select 
@@ -24,8 +20,6 @@ function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
           <option value="Employee">Employee</option>
         </select>
       </div>
-
-      {/* Show employee count using useEmployees hook */}
       <p>Total Employees: {employees.length}</p>
     </section>
   );
