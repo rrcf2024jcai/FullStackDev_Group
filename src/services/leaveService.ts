@@ -9,13 +9,13 @@ export function validateLeaveRequest(date: string, reason: string): {
     let isValid = true;
     const errors: string[] = [];
 
-    // Business Logic: Fields cannot be empty
+    //Fields cannot be empty
     if (!date || !reason.trim()) {
         isValid = false;
         errors.push("Please fill in the date and reason!");
     }
 
-    // Business Logic: Reason must be meaningful (e.g., more than 3 characters)
+    //Reason must be meaningful
     if (reason.trim().length > 0 && reason.trim().length < 4) {
         isValid = false;
         errors.push("Reason is too short. Please provide more details.");
@@ -24,7 +24,7 @@ export function validateLeaveRequest(date: string, reason: string): {
     return { isValid, errors };
 }
 
-// Business Logic: Format the data before sending it to Repository or State
+//Format the data before sending it to Repository or State
 export function createLeaveObject(type: string, date: string, reason: string): LeaveRequest {
     return {
         id: Date.now(), // Generate a simple ID
