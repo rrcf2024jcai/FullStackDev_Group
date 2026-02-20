@@ -1,4 +1,4 @@
-import { LeaveRequest } from "../types";
+import { LeaveRequest } from "../types/leave";
 
 // As a service, validateLeaveRequest handles the business logic of leave forms.
 // It determines if a request has valid dates and reasons.

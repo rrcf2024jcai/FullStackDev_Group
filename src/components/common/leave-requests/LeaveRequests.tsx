@@ -1,118 +1,134 @@
 import { useState } from "react";
 import "./LeaveRequests.css";
 
-interface LeaveRequest {
-  id: number;
-  type: string;
-  date: string;
-  reason: string;}
+// Import our business logic service
+import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
+// Import our type definition
+import { LeaveRequest } from "../../../types/leave";
 
+/**
+ * This component handles the presentation logic for leave requests.
+ * Following the layered architecture, all business logic (like validation
+ * and object creation) has been moved to the leaveService.
+ * This keeps our component clean and focused only on rendering the UI
+ * and managing local state.
+ */
 export default function LeaveRequests() {
-  
-  // List State
-  const [requests, setRequests] = useState<LeaveRequest[]>([
-    { id: 1, type: "Vacation", date: "2026-02-15", reason: "Family trip" },
-    { id: 2, type: "Sick Leave", date: "2026-01-20", reason: "Flu" }
-  ]);
+    
+    // State for the list of requests
+    const [requests, setRequests] = useState<LeaveRequest[]>([
+        { id: 1, type: "Vacation", date: "2026-02-15", reason: "Family trip" },
+        { id: 2, type: "Sick Leave", date: "2026-01-20", reason: "Flu" }
+    ]);
 
-  // Form State
-  const [newType, setNewType] = useState("Vacation");
-  const [newDate, setNewDate] = useState("");
-  const [newReason, setNewReason] = useState("");
+    // State for controlled inputs
+    const [newType, setNewType] = useState<string>("Vacation");
+    const [newDate, setNewDate] = useState<string>("");
+    const [newReason, setNewReason] = useState<string>("");
 
-  // Updating State
-  const handleAdd = (e: React.FormEvent) => {
-    e.preventDefault(); 
+    const handleAdd = (e: React.FormEvent) => {
+        e.preventDefault(); 
 
-    if (!newDate || !newReason) {
-      alert("Please fill in the date and reason!");
-      return;}
-      
+        // Delegate business logic to the service layer
+        const validation = validateLeaveRequest(newDate, newReason);
+        
+        if (!validation.isValid) {
+            // Display the first error message returned from the service
+            alert(validation.errors[0]); 
+            return;
+        }
 
-    const newItem: LeaveRequest = {
-      id: Date.now(), 
-      type: newType,
-      date: newDate,
-      reason: newReason};
+        // Use the service to format the new data object
+        const newItem: LeaveRequest = createLeaveObject(newType, newDate, newReason);
 
-    setRequests([...requests, newItem]);
+        // Update local state
+        setRequests([...requests, newItem]);
 
-    setNewDate("");
-    setNewReason("");};
+        // Clear inputs after successful submission
+        setNewDate("");
+        setNewReason("");
+    };
 
-  // Removal
-  const handleDelete = (idToDelete: number) => {
-    setRequests(requests.filter(item => item.id !== idToDelete));};
+    const handleDelete = (idToDelete: number) => {
+        setRequests(requests.filter((item) => item.id !== idToDelete));
+    };
 
-  return (
-    <div className="leave-container">
-      <h1>Leave Requests</h1>
-
-      {/*Form Component */}
-      <div className="form-box">
-        <h3>New Request</h3>
-        <form onSubmit={handleAdd}>
-          
-          <div className="input-group">
-            <label htmlFor="leave-type">Type:</label>
-            <select 
-              id="leave-type"
-              value={newType} 
-              onChange={(e) => setNewType(e.target.value)}
-            >
-              <option value="Vacation">Vacation</option>
-              <option value="Sick Leave">Sick Leave</option>
-              <option value="Personal">Personal</option>
-            </select>
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="leave-date">Date:</label>
-            <input 
-              id="leave-date"
-              type="date" 
-              value={newDate} 
-              onChange={(e) => setNewDate(e.target.value)} 
-            />
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="leave-reason">Reason:</label>
-            <input 
-              id="leave-reason"
-              type="text" 
-              placeholder="Why?" 
-              value={newReason} 
-              onChange={(e) => setNewReason(e.target.value)} 
-            />
-          </div>
-
-          <button type="submit" className="btn-add">Submit</button>
-        </form>
-      </div>
-
-      {/*Removal */}
-      <div className="list-box">
-        <h3>My History</h3>
-        <ul>
-          {requests.map((item) => (
+    // Annotate type as a list of JSX elements, similar to TermListDisplay
+    // Map is the best means of creating a component array
+    const requestListItems: JSX.Element[] = requests.map((item) => {
+        return (
             <li key={item.id} className="request-item">
-              <div className="info">
-                <strong>{item.type}</strong>
-                <span>{item.date} - {item.reason}</span>
-              </div>
-              <button 
-                className="btn-delete" 
-                onClick={() => handleDelete(item.id)}
-                // Add aria-label for screen readers
-                aria-label={`Delete request for ${item.type} on ${item.date}`}
-              >
-                Delete
-              </button>
+                <div className="info">
+                    <strong>{item.type}</strong>
+                    <span>{item.date} - {item.reason}</span>
+                </div>
+                <button 
+                    className="btn-delete" 
+                    onClick={() => handleDelete(item.id)}
+                    aria-label={`Delete request for ${item.type} on ${item.date}`}
+                >
+                    Delete
+                </button>
             </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
+        );
+        // all iterated components should have a Key provided
+    });
+
+    return (
+        <div className="leave-container">
+            <h1>Leave Requests</h1>
+            <div className="form-box">
+                <h3>Submit a Request</h3>
+                <form onSubmit={handleAdd}>
+                    <div className="input-group">
+                        <label htmlFor="leave-type">Type:</label>
+                        <select 
+                            id="leave-type" 
+                            value={newType} 
+                            onChange={(e) => setNewType(e.target.value)}
+                        >
+                            <option value="Vacation">Vacation</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="leave-date">Date:</label>
+                        {/*
+                            This is an example of a "controlled input" in which the value
+                            of the input is received from state -- the state is updated
+                            when the user modifies field text.
+                        */}
+                        <input 
+                            id="leave-date"
+                            type="date" 
+                            value={newDate} 
+                            onChange={(e) => setNewDate(e.target.value)} 
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="leave-reason">Reason:</label>
+                        <input 
+                            id="leave-reason"
+                            type="text" 
+                            placeholder="Why?" 
+                            value={newReason} 
+                            onChange={(e) => setNewReason(e.target.value)} 
+                        />
+                    </div>
+
+                    <button type="submit" className="btn-add">Submit</button>
+                </form>
+            </div>
+
+            <div className="list-box">
+                <h3>My History</h3>
+                <ol>
+                    {requestListItems}
+                </ol>
+            </div>
+        </div>
+    );
 }
