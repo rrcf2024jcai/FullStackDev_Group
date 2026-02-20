@@ -1,5 +1,5 @@
 import { SharedStateProps } from "../../../types";
-import LeaveRequests from "../../need_to_change/LeaveRequests_jiyu/LeaveRequests";
+import LeaveRequests from "../../common/leave-requests/LeaveRequests";
 
 function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
   return (

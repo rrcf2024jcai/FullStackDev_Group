@@ -1,5 +1,5 @@
 import { SharedStateProps } from "../../../types";
-import ClockInOut from "../../need_to_change/ClockIn-Out_alyssa/ClockInOut";
+import ClockInOut from "../../common/clock-in-out/ClockInOut";
 import "./TimePage.css";
 
 function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
