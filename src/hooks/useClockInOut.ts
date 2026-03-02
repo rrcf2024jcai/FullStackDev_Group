@@ -1,8 +1,10 @@
 import { useState } from "react";
 import * as service from "../services/clockService";
 import { ClockInOut } from "../types/clock-in-out";
+import { useCurrentUser } from "./useCurrentUser";
 
 export function useClockInOut() {
+  const { currentUser } = useCurrentUser();
   const [records, setRecords] = useState<ClockInOut[]>(service.getAllRecords());
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState("");
@@ -14,7 +16,8 @@ export function useClockInOut() {
       return;
     }
 
-    service.recordClockIn(location);
+    service.recordClockIn(currentUser, location);
+
     setRecords(service.getAllRecords());
     setSuccess(service.getClockSuccessMessage("Clock In"));
     setErrors([]);
@@ -27,7 +30,9 @@ export function useClockInOut() {
       return;
     }
 
-    service.recordClockOut(id, location);
+    // Pass BOTH id + userName + location
+    service.recordClockOut(id, currentUser, location);
+
     setRecords(service.getAllRecords());
     setSuccess(service.getClockSuccessMessage("Clock Out"));
     setErrors([]);

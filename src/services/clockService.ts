@@ -1,7 +1,13 @@
 // Sprint 3 imports
 import * as repo from "../repository/clockInOutRepository";
 import { ClockInOut } from "../types/clock-in-out";
+import { employeeData } from "../data/employeeData";
 
+// Add getEmployees to map current user
+export function getEmployeeIdByName(name: string): number | null {
+  const emp = employeeData.find(e => e.name === name);
+  return emp ? emp.id : null;
+}
 
 // validateClockAction handles the business logic for clocking in/out.
 export function validateClockAction(actionLabel: string, location: string): {
@@ -34,11 +40,15 @@ export function getAllRecords(): ClockInOut[] {
 }
 
 // Record a clock-in
-export function recordClockIn(location: string): void {
+export function recordClockIn(userName: string, location: string): void {
+  const employeeId = getEmployeeIdByName(userName);
+  if (!employeeId) return;
+
   const now = new Date().toLocaleTimeString();
 
   const entry: ClockInOut = {
     id: Date.now(),
+    employeeId,
     action: "Clock In",
     time: now,
     location,
@@ -49,14 +59,20 @@ export function recordClockIn(location: string): void {
   repo.add(entry);
 }
 
+
 // Record a clock-out
-export function recordClockOut(id: number, location: string): void {
+export function recordClockOut(id: number, userName: string, location: string): void {
+  const employeeId = getEmployeeIdByName(userName);
+  if (!employeeId) return;
+
   const now = new Date().toLocaleTimeString();
 
   repo.update(id, {
+    employeeId,
     action: "Clock Out",
     time: now,
     location,
     clockOut: now
   });
 }
+
