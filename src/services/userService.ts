@@ -1,9 +1,9 @@
-let currentUser = "Admin";
+import { readCurrentUser, writeCurrentUser } from "../apis/userRepository";
 
 export function getCurrentUser() {
-  return currentUser;
+  return readCurrentUser();
 }
 
 export function setCurrentUser(user: string) {
-  currentUser = user;
+  writeCurrentUser(user);
 }

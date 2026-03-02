@@ -1,8 +1,13 @@
-import { SharedStateProps } from "../../../types";
+// import { SharedStateProps } from "../../../types";
+import { useCurrentUser } from "../../../hooks";
 import ClockInOut from "../../common/clock-in-out/ClockInOut";
 import "./TimePage.css";
 
-function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
+// function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
+
+export default function TimePage() {
+  const { currentUser, switchUser } = useCurrentUser();
+
   return (
     <section>
       <h2>Time Page</h2>
@@ -15,7 +20,7 @@ function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
         <label>Switch User: </label>
         <select 
           value={currentUser} 
-          onChange={(e) => setCurrentUser(e.target.value)}
+          onChange={(e) => switchUser(e.target.value)} // Replaced setCurrentUser
         >
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
@@ -27,5 +32,3 @@ function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
     </section>
   );
 }
-
-export default TimePage;
