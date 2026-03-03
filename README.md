@@ -14,19 +14,14 @@ The app focuses in emphasizing usability, scalability, and data-driven insights.
 ## Scope of our chosen app:
 
 - Employee login
-
 - Clock In / Clock Out
-
 - View Attendance history
-
 - Manager approval
 
 ## High-Level User Stories
 
 - As an employee, I want to record my clock in - clock out… so that my daily work hours are recorded and captured accurately.
-
 - As a manager, I want to track my team’s attendance records through a simple web interface… so that I can monitor their attendance and filed leaves.
-
 - As an HR Associate, I want to generate attendance reports efficiently... so that I can process employees’ payroll accurately.
 
 ## Sprint 1 - Team Member Tasks
@@ -84,6 +79,33 @@ The app focuses in emphasizing usability, scalability, and data-driven insights.
 - Work on the Sprint 1 T.4 App.tsx:
   - Add the application name in the header.
   - Put member names in the footer.
+
+## Sprint 3 - Team Member Tasks
+
+**Chenyang Ma**:
+- Configured the T.1 Hook Definitions.
+- Managed the logic presentation rather than business or access data logic.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Ensured the Emploee list UI reads all data and actions directly from the hook.
+  - Added total employee number in the Home page.
+  - Enhanced UI of the Employees page.
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Alyssa Urquiola**:
+- Modified the T.3 Shared-page-state Refactor.
+- Updated the README for Sprint 3 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Removed local component state and prop-drilling from Sprint 2 by connecting the page to global user state (useCurrentUser).
+  - Standardized the page structure to match the Sprint 3 architecture used across other pages (Employee list and Leave Management).
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Jiyu Cai**
+- Handled the T.2 Service Definition.
+- Ensured the hook calls the service across the app instead of manipulating data directly.
+- Organized our project folders and manages the push requests from develop branch.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Added service methods for leave requests, records retrieval, and deletion.
+  - Enhanced UI of the Leave Management page.
 
 # React + TypeScript + Vite
 
