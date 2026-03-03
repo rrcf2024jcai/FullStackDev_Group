@@ -1,4 +1,5 @@
 // import { SharedStateProps } from "../../../types";
+// import ClockInOut from "../../common/clock-in-out/ClockInOut";
 import { useCurrentUser } from "../../../hooks";
 import ClockInOut from "../../common/clock-in-out/ClockInOut";
 import "./TimePage.css";
@@ -7,6 +8,7 @@ import "./TimePage.css";
 
 export default function TimePage() {
   const { currentUser, switchUser } = useCurrentUser();
+  //const { records, errors, success, handleClockIn, handleClockOut } = useClockInOut();
 
   return (
     <section>
@@ -32,3 +34,4 @@ export default function TimePage() {
     </section>
   );
 }
+
