@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react"; 
 import "./LeaveRequests.css";
 import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
 import { LeaveRequest } from "../../../types/leave";
