@@ -1,56 +1,48 @@
-import { useState } from "react";
+import React from "react"; 
 import "./LeaveRequests.css";
-
-// Import our business logic service
 import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
-// Import our type definition
 import { LeaveRequest } from "../../../types/leave";
+import { useLeaveRequests } from "../../../hooks/useLeaveRequests";
 
 /**
  * This component handles the presentation logic for leave requests.
- * Following the layered architecture, all business logic (like validation
- * and object creation) has been moved to the leaveService.
- * This keeps our component clean and focused only on rendering the UI
- * and managing local state.
  */
 export default function LeaveRequests() {
     
-    // State for the list of requests
-    const [requests, setRequests] = useState<LeaveRequest[]>([
-        { id: 1, type: "Vacation", date: "2026-02-15", reason: "Family trip" },
-        { id: 2, type: "Sick Leave", date: "2026-01-20", reason: "Flu" }
-    ]);
+    //Use the custom hook to access data and methods
+    const { requests, addRequest, removeRequest } = useLeaveRequests();
 
-    // State for controlled inputs
+    // Local State for controlled inputs 
     const [newType, setNewType] = useState<string>("Vacation");
     const [newDate, setNewDate] = useState<string>("");
     const [newReason, setNewReason] = useState<string>("");
 
-    const handleAdd = (e: React.FormEvent) => {
+    const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault(); 
 
-        // Delegate business logic to the service layer
+        // Delegate validation logic to the Service
         const validation = validateLeaveRequest(newDate, newReason);
         
         if (!validation.isValid) {
-            // Display the first error message returned from the service
+            // Display error from service
             alert(validation.errors[0]); 
             return;
         }
 
-        // Use the service to format the new data object
+        // Use the Service to create the formatted object
         const newItem: LeaveRequest = createLeaveObject(newType, newDate, newReason);
 
-        // Update local state
-        setRequests([...requests, newItem]);
+        // Use the Hook to save the data
+        await addRequest(newItem);
 
-        // Clear inputs after successful submission
+        // Clear inputs after success
         setNewDate("");
         setNewReason("");
     };
 
-    const handleDelete = (idToDelete: number) => {
-        setRequests(requests.filter((item) => item.id !== idToDelete));
+    const handleDelete = async (idToDelete: number) => {
+        // Use the Hook to delete data
+        await removeRequest(idToDelete);
     };
 
     // Annotate type as a list of JSX elements, similar to TermListDisplay
@@ -97,8 +89,7 @@ export default function LeaveRequests() {
                         <label htmlFor="leave-date">Date:</label>
                         {/*
                             This is an example of a "controlled input" in which the value
-                            of the input is received from state -- the state is updated
-                            when the user modifies field text.
+                            of the input is received from state.
                         */}
                         <input 
                             id="leave-date"
@@ -125,9 +116,13 @@ export default function LeaveRequests() {
 
             <div className="list-box">
                 <h3>My History</h3>
-                <ol>
-                    {requestListItems}
-                </ol>
+                {requests.length === 0 ? (
+                    <p>No leave requests found.</p>
+                ) : (
+                    <ol>
+                        {requestListItems}
+                    </ol>
+                )}
             </div>
         </div>
     );
