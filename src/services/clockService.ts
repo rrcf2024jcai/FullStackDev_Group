@@ -31,7 +31,7 @@ export function getClockSuccessMessage(actionLabel: string): string {
     if (actionLabel === "Clock In") {
         return "Clock-in recorded. Please remember to clock out at the end of your work period.";
     }
-    return "Great work today! You’re clocked out. Your Attendance Log has been updated.";
+    return "Great work today! You're clocked out. Your Attendance Log has been updated.";
 }
 
 // Repository calls and fect all records
@@ -58,7 +58,6 @@ export function recordClockIn(userName: string, location: string): void {
 
   repo.add(entry);
 }
-
 
 // Record a clock-out
 export function recordClockOut(id: number, userName: string, location: string): void {

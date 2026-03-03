@@ -1,3 +1,12 @@
+/**
+ * Sprint 3 - I.3 New/Refactored Component
+ * This repository will manage all the clock-in/out records for the Time Tracking page.
+ * 
+ * - Loads the test data (I.2 requirement).
+ * - It will store all records in memory when submitting a time record.
+ * - Provide CRUD operations for the sevice layer.
+ */
+
 import { clockInOutData } from "../data/clock-in-outData";
 import { ClockInOut } from "../types/clock-in-out";
 
