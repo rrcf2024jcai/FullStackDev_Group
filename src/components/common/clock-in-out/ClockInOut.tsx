@@ -1,90 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClockForm from "./ClockForm";
+import { useClockInOut } from "../../../hooks/useClockInOut";
 
 export default function ClockInOut() {
-    // Components state
-    const [isClockedIn, setIsClockedIn] = useState(false);
-    // NotesForm component
-    const [notes, setNotes] = useState("");
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-    const [logs, setLogs] = useState<
-        {id: number; action: String; time: string; location: string}[]
-    >([]);
+  const [notes, setNotes] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-    // Handle button click
-    const handleAction = (actionLabel: string) => {
-        // Validation notes for Clock Out. Use strict comparison
-        if (actionLabel === "Clock Out" && notes.trim() === "") {
-            setError("Please enter your location to complete your clock-out.");
-            setSuccess("");
-            return;
-        } 
+  const {
+    records,
+    errors: repoErrors,
+    success: repoSuccess,
+    handleClockIn,
+    handleClockOut,
+    handleRemove
+  } = useClockInOut();
 
-        setError("");
-        setSuccess("");
+  const isClockedIn =
+    records.length > 0 && records[records.length - 1].action === "Clock In";
 
-        const timestamp = new Date().toLocaleTimeString();
-    // Add log entry so setLogs is actually used
-    setLogs(prev => [
-        ...prev,
-        {
-        id: prev.length + 1,
-        action: actionLabel,
-        time: timestamp,
-        location: notes.trim() // I.2 Form - Added user-text area
-        }
-    ]);
+  useEffect(() => {
+    if (repoErrors.length > 0) setError(repoErrors[0]);
+  }, [repoErrors]);
 
-    // I.2 Form - Add Clocked-In success message
+  useEffect(() => {
+    if (repoSuccess) setSuccess(repoSuccess);
+  }, [repoSuccess]);
+
+  const handleAction = (actionLabel: string) => {
+    setError("");
+    setSuccess("");
+
+    const location = notes.trim();
+    if (!location) {
+      setError("Please enter your location.");
+      return;
+    }
+
     if (actionLabel === "Clock In") {
-        setIsClockedIn(true);
-        setSuccess("Clock-in recorded. Please remember to clock out at the end of your work period.");
+      handleClockIn(location);
     }
 
     if (actionLabel === "Clock Out") {
-        setIsClockedIn(false);
-        setSuccess("Great work today! You’re clocked out. Your Attendance Log has been updated.")
+      const latest = records[records.length - 1];
+      if (latest) handleClockOut(latest.id, location);
     }
 
-    // Clearing notes
     setNotes("");
-    };
+  };
 
-    // Removing log entry
-    const removeLog = (id: number) => {
-        setLogs((prev) => prev.filter((log) => log.id !== id));
-    };
+  return (
+    <div className="time-tracking-container">
+      <h3>Clock In / Out</h3>
 
-    return (
-        <section>
-        <p>
-            Status:{" "}
-            <strong>{isClockedIn ? "Currently Clocked In" : "Not Clocked In"}</strong>
-        </p>
-        
-        <ClockForm
-            notes={notes}
-            setNotes={setNotes}
-            error={error}
-            success={success}
-            handleAction={handleAction}
-        />
+      <p>
+        Status:{" "}
+        <strong>{isClockedIn ? "Currently Clocked In" : "Not Clocked In"}</strong>
+      </p>
 
-        <h3>Attendance Log</h3>
-        <ul>
-            {logs.map((log) => (
-            <li key={log.id}>
-                {log.action} at {log.time} - Location: {log.location}
-                <button
-                    style={{ marginLeft: "10px"}}
-                    onClick={() => removeLog(log.id)}
-                >
-                    Remove
-                </button>
-            </li>
-            ))}
-        </ul>
-        </section>
+      <ClockForm
+        notes={notes}
+        setNotes={setNotes}
+        error={error}
+        success={success}
+        handleAction={handleAction}
+      />
+
+      <h3>My Attendance History</h3>
+      <ul className="history-list">
+        {records.map((log) => (
+          <li key={log.id} className="history-item">
+            <div>
+              <strong>{log.employeeName}</strong> — {log.employeeRole} ({log.employeeDepartment})
+              <br />
+              {log.action} at {log.time} — {log.location}
+            </div>
+
+            <button className="delete-btn" onClick={() => handleRemove(log.id)}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

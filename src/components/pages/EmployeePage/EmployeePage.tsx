@@ -9,14 +9,19 @@
  * Why: Instead of putting all logic in this component like Sprint 2,
  * we separated it into layers so the code is easier to maintain and reuse.
  */
-import { SharedStateProps } from "../../../types";
-import { useEmployees } from "../../../hooks";
+// import { SharedStateProps } from "../../../types";
+import { useEmployees, useCurrentUser } from "../../../hooks";
 import EmployeeList from "../../common/employee-list/EmployeeList";
 import SearchForm from "../../common/employee-list/SearchForm";
 import AddEmployeeForm from "../../common/employee-list/AddEmployeeForm";
 import "./EmployeePage.css";
 
-function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
+//function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
+  //const { employees, searchTerm, setSearchTerm, handleAdd, handleDelete, errors } = useEmployees();
+
+// T.3 implementation for global context
+function EmployeePage() {
+  const { currentUser, switchUser } = useCurrentUser();
   const { employees, searchTerm, setSearchTerm, handleAdd, handleDelete, errors } = useEmployees();
 
   return (
@@ -28,7 +33,7 @@ function EmployeePage({ currentUser, setCurrentUser }: SharedStateProps) {
         <label>Switch User: </label>
         <select
           value={currentUser}
-          onChange={(e) => setCurrentUser(e.target.value)}
+          onChange={(e) => switchUser(e.target.value)} // Replaced setCurrentUser
         >
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>

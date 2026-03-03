@@ -1,8 +1,14 @@
-import { SharedStateProps } from "../../../types";
-import { useEmployees } from "../../../hooks";
+// Old import
+// import { SharedStateProps } from "../../../types";
+// import { useEmployees } from "../../../hooks";
+import { useEmployees, useCurrentUser } from "../../../hooks";
 
-function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
+export default function HomePage() {
+  const { currentUser, switchUser } = useCurrentUser();
   const { employees } = useEmployees();
+
+// function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
+  //const { employees } = useEmployees();
 
   return (
     <section>
@@ -13,7 +19,7 @@ function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
         <label>Switch User: </label>
         <select 
           value={currentUser} 
-          onChange={(e) => setCurrentUser(e.target.value)}
+          onChange={(e) => switchUser(e.target.value)}
         >
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
@@ -24,5 +30,3 @@ function HomePage({ currentUser, setCurrentUser }: SharedStateProps) {
     </section>
   );
 }
-
-export default HomePage;

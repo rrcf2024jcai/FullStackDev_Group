@@ -1,24 +1,43 @@
-// validateClockAction handles the business logic for clocking in/out.
-export function validateClockAction(actionLabel: string, location: string): {
-    isValid: boolean;
-    errors: string[];
-} {
-    let isValid = true;
-    const errors: string[] = [];
+import * as repo from "../repository/clockInOutRepository";
+import { ClockInOut } from "../types/clock-in-out";
 
-    // Location is mandatory for Clock Out
-    if (actionLabel === "Clock Out" && location.trim() === "") {
-        isValid = false;
-        errors.push("Please enter your location to complete your clock-out.");
-    }
-
-    return { isValid, errors };
+export function getRecordsForEmployee(employeeId: number): ClockInOut[] {
+  return repo.getByEmployee(employeeId);
 }
 
-// Determines the correct success message based on the action
-export function getClockSuccessMessage(actionLabel: string): string {
-    if (actionLabel === "Clock In") {
-        return "Clock-in recorded. Please remember to clock out at the end of your work period.";
-    }
-    return "Great work today! You’re clocked out. Your Attendance Log has been updated.";
+export function clockIn(employeeId: number, location: string): void {
+  const now = new Date();
+
+  const record: ClockInOut = {
+    id: repo.getNextId(),
+    employeeId,
+    action: "Clock In",
+    time: now.toLocaleTimeString(),
+    location,
+    clockIn: now.toISOString(),
+    clockOut: null
+  };
+
+  repo.add(record);
+}
+
+export function clockOut(id: number, employeeId: number, location: string): void {
+  const existing = repo.getByEmployee(employeeId).find(r => r.id === id);
+  if (!existing) return;
+
+  const now = new Date();
+
+  const updated: ClockInOut = {
+    ...existing,
+    action: "Clock Out",
+    time: now.toLocaleTimeString(),
+    location,
+    clockOut: now.toISOString()
+  };
+
+  repo.update(updated);
+}
+
+export function removeRecord(id: number): void {
+  repo.remove(id);
 }
