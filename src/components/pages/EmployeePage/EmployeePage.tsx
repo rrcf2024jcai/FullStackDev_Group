@@ -1,3 +1,14 @@
+/**
+ * EmployeePage Component
+ * 
+ * This component uses the hook-service-repository architecture:
+ * - useEmployees hook: manages employee state, search, add and delete for the UI
+ * - employeeService: handles business logic like validation and filtering
+ * - employeeRepository: handles data access (CRUD operations on employee data)
+ * 
+ * Why: Instead of putting all logic in this component like Sprint 2,
+ * we separated it into layers so the code is easier to maintain and reuse.
+ */
 // import { SharedStateProps } from "../../../types";
 import { useEmployees, useCurrentUser } from "../../../hooks";
 import EmployeeList from "../../common/employee-list/EmployeeList";

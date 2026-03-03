@@ -1,77 +1,43 @@
-// Sprint 3 imports
 import * as repo from "../repository/clockInOutRepository";
 import { ClockInOut } from "../types/clock-in-out";
-import { employeeData } from "../data/employeeData";
 
-// Add getEmployees to map current user
-export function getEmployeeIdByName(name: string): number | null {
-  const emp = employeeData.find(e => e.name === name);
-  return emp ? emp.id : null;
+export function getRecordsForEmployee(employeeId: number): ClockInOut[] {
+  return repo.getByEmployee(employeeId);
 }
 
-// validateClockAction handles the business logic for clocking in/out.
-export function validateClockAction(actionLabel: string, location: string): {
-    isValid: boolean;
-    errors: string[];
-} {
-    let isValid = true;
-    const errors: string[] = [];
+export function clockIn(employeeId: number, location: string): void {
+  const now = new Date();
 
-    // Location is mandatory for Clock Out
-    if (actionLabel === "Clock Out" && location.trim() === "") {
-        isValid = false;
-        errors.push("Please enter your location to complete your clock-out.");
-    }
-
-    return { isValid, errors };
-}
-
-// Determines the correct success message based on the action
-export function getClockSuccessMessage(actionLabel: string): string {
-    if (actionLabel === "Clock In") {
-        return "Clock-in recorded. Please remember to clock out at the end of your work period.";
-    }
-    return "Great work today! You're clocked out. Your Attendance Log has been updated.";
-}
-
-// Repository calls and fect all records
-export function getAllRecords(): ClockInOut[] {
-  return repo.getAll();
-}
-
-// Record a clock-in
-export function recordClockIn(userName: string, location: string): void {
-  const employeeId = getEmployeeIdByName(userName);
-  if (!employeeId) return;
-
-  const now = new Date().toLocaleTimeString();
-
-  const entry: ClockInOut = {
-    id: Date.now(),
+  const record: ClockInOut = {
+    id: repo.getNextId(),
     employeeId,
     action: "Clock In",
-    time: now,
+    time: now.toLocaleTimeString(),
     location,
-    clockIn: now,
+    clockIn: now.toISOString(),
     clockOut: null
   };
 
-  repo.add(entry);
+  repo.add(record);
 }
 
-// Record a clock-out
-export function recordClockOut(id: number, userName: string, location: string): void {
-  const employeeId = getEmployeeIdByName(userName);
-  if (!employeeId) return;
+export function clockOut(id: number, employeeId: number, location: string): void {
+  const existing = repo.getByEmployee(employeeId).find(r => r.id === id);
+  if (!existing) return;
 
-  const now = new Date().toLocaleTimeString();
+  const now = new Date();
 
-  repo.update(id, {
-    employeeId,
+  const updated: ClockInOut = {
+    ...existing,
     action: "Clock Out",
-    time: now,
+    time: now.toLocaleTimeString(),
     location,
-    clockOut: now
-  });
+    clockOut: now.toISOString()
+  };
+
+  repo.update(updated);
 }
 
+export function removeRecord(id: number): void {
+  repo.remove(id);
+}
