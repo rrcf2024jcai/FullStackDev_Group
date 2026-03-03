@@ -10,3 +10,9 @@ export interface ClockInOut {
     clockIn: string | null;
     clockOut: string | null;
   }
+
+  export interface ClockInOutWithEmployee extends ClockInOut {
+  employeeName: string;
+  employeeRole: string;
+  employeeDepartment: string;
+}
