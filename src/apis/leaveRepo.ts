@@ -8,8 +8,7 @@ export function fetchLeaveRequests(): LeaveRequest[] {
 // Add a new leave request
 export async function addLeaveRequest(request: LeaveRequest): Promise<LeaveRequest> {
     leaveData.push(request);
-    return request;
-}
+    return request;}
 
 // Delete a leave request by ID
 export async function deleteLeaveRequest(id: number): Promise<void> {

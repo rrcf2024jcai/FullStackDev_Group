@@ -1,3 +1,4 @@
+import * as LeaveRepo from "../apis/leaveRepo";
 import { LeaveRequest } from "../types/leave";
 
 // As a service, validateLeaveRequest handles the business logic of leave forms.
@@ -32,4 +33,24 @@ export function createLeaveObject(type: string, date: string, reason: string): L
         date: date,
         reason: reason.trim()
     };
+}
+
+/**
+ * Data Access Delegation
+ * The Service layer acts as a bridge between the Controller and the Repository.
+ */
+
+export async function fetchAllLeaves(): Promise<LeaveRequest[]> {
+    // Business logic could be added 
+    const data = LeaveRepo.fetchLeaveRequests();
+    return data;
+}
+
+export async function submitNewRequest(request: LeaveRequest): Promise<void> {
+    // We could add check logic here before saving
+    await LeaveRepo.addLeaveRequest(request);
+}
+
+export async function removeRequest(id: number): Promise<void> {
+    await LeaveRepo.deleteLeaveRequest(id);
 }
