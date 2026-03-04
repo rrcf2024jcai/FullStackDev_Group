@@ -9,7 +9,7 @@
 
 import { clockInOutData } from "../data/clock-in-outData";
 import { ClockInOut } from "../types/clock-in-out";
-import { clockInOutData } from "../data/clock-in-outData";
+
 
 const STORAGE_KEY = "clock_records";
 
