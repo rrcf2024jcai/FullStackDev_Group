@@ -1,7 +1,11 @@
-import { SharedStateProps } from "../../types";
-import LeaveRequests from "../../components/LeaveRequests_jiyu/LeaveRequests";
+//import { SharedStateProps } from "../../../types";
+import { useCurrentUser } from "../../../hooks";
+import LeaveRequests from "../../common/leave-requests/LeaveRequests";
 
-function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
+//function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
+export default function LeavePage() {
+  const { currentUser, switchUser } = useCurrentUser();
+
   return (
     <section>
       <h2>Leave Management</h2>
@@ -14,7 +18,7 @@ function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
         <label>Switch User: </label>
         <select 
           value={currentUser} 
-          onChange={(e) => setCurrentUser(e.target.value)}
+          onChange={(e) => switchUser(e.target.value)} // Replaced setCurrentUser
         >
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
@@ -26,5 +30,3 @@ function LeavePage({ currentUser, setCurrentUser }: SharedStateProps) {
     </section>
   );
 }
-
-export default LeavePage;
