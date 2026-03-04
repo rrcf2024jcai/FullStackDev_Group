@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, { useState } from "react"; 
 import "./LeaveRequests.css";
 import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
 import { LeaveRequest } from "../../../types/leave";
@@ -47,7 +47,7 @@ export default function LeaveRequests() {
 
     // Annotate type as a list of JSX elements, similar to TermListDisplay
     // Map is the best means of creating a component array
-    const requestListItems: JSX.Element[] = requests.map((item) => {
+    const requestListItems = requests.map((item) => {
         return (
             <li key={item.id} className="request-item">
                 <div className="info">
