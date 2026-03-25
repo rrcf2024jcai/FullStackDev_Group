@@ -1,0 +1,18 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ClockRecord {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  time       DateTime
+  location   String
+  type       String   // "IN" or "OUT"
+  createdAt  DateTime @default(now())
+}
