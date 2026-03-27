@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id            Int            @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  email         String         @unique
+
+  clockRecords  ClockRecord[]
+  leaveRequests LeaveRequest[]
+}
+
+model ClockRecord {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  time       DateTime
+  location   String
+  type       String   // "IN" or "OUT"
+  createdAt  DateTime @default(now())
+
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model LeaveRequest {
+  id          Int      @id @default(autoincrement())
+  employeeId  Int
+  startDate   DateTime
+  endDate     DateTime
+  type        String   // "Sick", "Vacation", etc.
+  reason      String
+  status      String   @default("Pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  employee    Employee @relation(fields: [employeeId], references: [id])
+}
