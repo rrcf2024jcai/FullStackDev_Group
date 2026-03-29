@@ -12,7 +12,8 @@ model Employee {
   firstName     String
   lastName      String
   email         String         @unique
-
+  role          String
+  department    String
   clockRecords  ClockRecord[]
   leaveRequests LeaveRequest[]
 }
