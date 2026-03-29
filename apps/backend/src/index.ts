@@ -2,15 +2,18 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import prisma from "./prisma/client.js";
+import employeeRoutes from "./routes/employeeRoutes.js";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+}));
 app.use(express.json());
 
-// Test endpoint
+app.use("/api/employees", employeeRoutes);
 
 app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
