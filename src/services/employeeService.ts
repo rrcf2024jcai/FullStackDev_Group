@@ -2,14 +2,14 @@ import { Employee } from "../types/employee";
 import * as employeeRepository from "../apis/employeeRepository";
 
 // Check if employee input is valid
-export function validateNewEmployee(name: string, role: string, department: string): {
+export function validateNewEmployee(firstName: string, lastName: string, email: string, role: string, department: string): {
     isValid: boolean;
     errors: string[];
 } {
     let isValid = true;
     const errors: string[] = [];
 
-    if (!name.trim() || !role.trim() || !department.trim()) {
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !role.trim() || !department.trim()) {
         isValid = false;
         errors.push("Please fill in all fields.");
     }
@@ -22,29 +22,29 @@ export function filterEmployees(employees: Employee[], searchTerm: string): Empl
     if (!searchTerm) {
         return employees;
     }
-    
     const term = searchTerm.toLowerCase();
     return employees.filter((emp) =>
-        emp.name.toLowerCase().includes(term)
+        emp.firstName.toLowerCase().includes(term) ||
+        emp.lastName.toLowerCase().includes(term)
     );
 }
 
 // Get all employees from repository
-export function getAllEmployees(): Employee[] {
-    return employeeRepository.getAll();
+export async function getAllEmployees(): Promise<Employee[]> {
+    return await employeeRepository.getAll();
 }
 
 // Add employee - validate first, then save to repository
-export function addEmployee(employee: Employee): { success: boolean; errors: string[] } {
-    const validation = validateNewEmployee(employee.name, employee.role, employee.department);
+export async function addEmployee(employee: Omit<Employee, "id">): Promise<{ success: boolean; errors: string[] }> {
+    const validation = validateNewEmployee(employee.firstName, employee.lastName, employee.email, employee.role, employee.department);
     if (!validation.isValid) {
         return { success: false, errors: validation.errors };
     }
-    employeeRepository.add(employee);
+    await employeeRepository.add(employee);
     return { success: true, errors: [] };
 }
 
 // Delete employee from repository
-export function deleteEmployee(id: number): boolean {
-    return employeeRepository.remove(id);
+export async function deleteEmployee(id: number): Promise<boolean> {
+    return await employeeRepository.remove(id);
 }

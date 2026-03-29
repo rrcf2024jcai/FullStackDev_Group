@@ -1,42 +1,31 @@
 import { Employee } from "../types/employee";
-import { employeeData } from "../data/employeeData";
 
-/**
- * Employee Repository
- * Handles all data access for Employee resources.
- * Currently uses test data, will be replaced with API calls in the next module.
- */
-
-// Local copy of employee data (simulates a database)
-let employees: Employee[] = [...employeeData];
+const API_URL = "http://localhost:3003/api/employees";
 
 // Get all employees
-export function getAll(): Employee[] {
-  return [...employees];
+export async function getAll(): Promise<Employee[]> {
+  const res = await fetch(API_URL);
+  return res.json();
 }
 
 // Get a single employee by ID
-export function getById(id: number): Employee | undefined {
-  return employees.find((emp) => emp.id === id);
+export async function getById(id: number): Promise<Employee | undefined> {
+  const res = await fetch(`${API_URL}/${id}`);
+  return res.json();
 }
 
 // Add a new employee
-export function add(employee: Employee): Employee {
-  employees.push(employee);
-  return employee;
-}
-
-// Update an existing employee
-export function update(id: number, updated: Employee): Employee | undefined {
-  const index = employees.findIndex((emp) => emp.id === id);
-  if (index === -1) return undefined;
-  employees[index] = updated;
-  return updated;
+export async function add(employee: Omit<Employee, "id">): Promise<Employee> {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(employee),
+  });
+  return res.json();
 }
 
 // Delete an employee by ID
-export function remove(id: number): boolean {
-  const lengthBefore = employees.length;
-  employees = employees.filter((emp) => emp.id !== id);
-  return employees.length < lengthBefore;
+export async function remove(id: number): Promise<boolean> {
+  const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+  return res.ok;
 }
