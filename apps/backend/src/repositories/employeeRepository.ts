@@ -11,9 +11,10 @@ export async function getById(id: number) {
 }
 
 // Add a new employee
-export async function add(data: { firstName: string; lastName: string; email: string; role: string; department: string }) {
+export async function add(data: { firstName: string; lastName: string; role: string; department: string }) {
   return await prisma.employee.create({ data });
 }
+
 
 // Delete an employee by id
 export async function remove(id: number) {
