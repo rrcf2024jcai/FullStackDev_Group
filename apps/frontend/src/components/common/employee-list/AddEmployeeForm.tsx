@@ -8,13 +8,12 @@ interface AddEmployeeFormProps {
 function AddEmployeeForm({ onAdd }: AddEmployeeFormProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [department, setDepartment] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName.trim() || !lastName.trim() || !email.trim() || !role.trim() || !department.trim()) {
+    if (!firstName.trim() || !lastName.trim() || !role.trim() || !department.trim()) {
       alert("Please fill in all fields");
       return;
     }
@@ -22,14 +21,12 @@ function AddEmployeeForm({ onAdd }: AddEmployeeFormProps) {
     onAdd({
       firstName: firstName.trim(),
       lastName: lastName.trim(),
-      email: email.trim(),
       role: role.trim(),
       department: department.trim(),
     });
 
     setFirstName("");
     setLastName("");
-    setEmail("");
     setRole("");
     setDepartment("");
   };
@@ -44,10 +41,6 @@ function AddEmployeeForm({ onAdd }: AddEmployeeFormProps) {
       <div>
         <label htmlFor="lastName">Last Name: </label>
         <input id="lastName" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Enter last name" />
-      </div>
-      <div>
-        <label htmlFor="email">Email: </label>
-        <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
       </div>
       <div>
         <label htmlFor="role">Role: </label>

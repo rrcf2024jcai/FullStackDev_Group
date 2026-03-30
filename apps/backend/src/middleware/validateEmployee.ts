@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 export function validateEmployee(req: Request, res: Response, next: NextFunction) {
-  const { firstName, lastName, email, role, department } = req.body;
+  const { firstName, lastName, role, department } = req.body;
 
   const errors: string[] = [];
 
@@ -10,9 +10,6 @@ export function validateEmployee(req: Request, res: Response, next: NextFunction
   }
   if (!lastName || !lastName.trim()) {
     errors.push("Last name is required");
-  }
-  if (!email || !email.trim()) {
-    errors.push("Email is required");
   }
   if (!role || !role.trim()) {
     errors.push("Role is required");
