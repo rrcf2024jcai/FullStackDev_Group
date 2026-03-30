@@ -18,12 +18,13 @@ model Employee {
 }
 
 model ClockRecord {
-  id         Int      @id @default(autoincrement())
-  employeeId Int
-  time       DateTime
-  location   String
-  type       String   // "IN" or "OUT"
-  createdAt  DateTime @default(now())
+  id          Int       @id @default(autoincrement())
+  employeeId  Int
+  clockIn     DateTime?
+  clockOut    DateTime?
+  locationIn  String?
+  locationOut String?
+  createdAt   DateTime  @default(now())
 
   employee   Employee @relation(fields: [employeeId], references: [id])
 }
