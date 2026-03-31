@@ -15,7 +15,7 @@ function EmployeeList({ employees, onDelete }: EmployeeListProps) {
         <ul>
           {employees.map((employee) => (
             <li key={employee.id}>
-              <span>{employee.name} {employee.name} - {employee.role} - {employee.department}</span>
+              <span>{employee.firstName} {employee.lastName} - {employee.role} - {employee.department}</span>
               <button onClick={() => onDelete(employee.id)}>Delete</button>
             </li>
           ))}
