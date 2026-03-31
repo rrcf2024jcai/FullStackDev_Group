@@ -1,82 +1,104 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import "./LeaveRequests.css";
 import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
-import { LeaveRequest } from "../../../types/leave";
 import { useLeaveRequests } from "../../../hooks/useLeaveRequests";
 
 /**
  * This component handles the presentation logic for leave requests.
+ * Data is now persisted to the backend database via the API.
  */
 export default function LeaveRequests() {
-    
-    //Use the custom hook to access data and methods
-    const { requests, addRequest, removeRequest } = useLeaveRequests();
 
-    // Local State for controlled inputs 
+    const { requests, error, addRequest, removeRequest } = useLeaveRequests();
+
+    // Local state for controlled form inputs
+    const [newEmployeeId, setNewEmployeeId] = useState<string>("");
     const [newType, setNewType] = useState<string>("Vacation");
-    const [newDate, setNewDate] = useState<string>("");
+    const [newStartDate, setNewStartDate] = useState<string>("");
+    const [newEndDate, setNewEndDate] = useState<string>("");
     const [newReason, setNewReason] = useState<string>("");
 
     const handleAdd = async (e: React.FormEvent) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
-        // Delegate validation logic to the Service
-        const validation = validateLeaveRequest(newDate, newReason);
-        
+        // Delegate validation to the Service layer
+        const validation = validateLeaveRequest(newEmployeeId, newStartDate, newEndDate, newReason);
+
         if (!validation.isValid) {
-            // Display error from service
-            alert(validation.errors[0]); 
+            alert(validation.errors[0]);
             return;
         }
 
-        // Use the Service to create the formatted object
-        const newItem: LeaveRequest = createLeaveObject(newType, newDate, newReason);
+        // Use the Service to build the correctly-shaped payload
+        const newItem = createLeaveObject(
+            Number(newEmployeeId),
+            newType,
+            newStartDate,
+            newEndDate,
+            newReason
+        );
 
-        // Use the Hook to save the data
+        // Use the Hook to persist the data to the backend
         await addRequest(newItem);
 
         // Clear inputs after success
-        setNewDate("");
+        setNewEmployeeId("");
+        setNewStartDate("");
+        setNewEndDate("");
         setNewReason("");
     };
 
     const handleDelete = async (idToDelete: number) => {
-        // Use the Hook to delete data
         await removeRequest(idToDelete);
     };
 
-    // Annotate type as a list of JSX elements, similar to TermListDisplay
-    // Map is the best means of creating a component array
-    const requestListItems = requests.map((item) => {
-        return (
-            <li key={item.id} className="request-item">
-                <div className="info">
-                    <strong>{item.type}</strong>
-                    <span>{item.date} - {item.reason}</span>
-                </div>
-                <button 
-                    className="btn-delete" 
-                    onClick={() => handleDelete(item.id)}
-                    aria-label={`Delete request for ${item.type} on ${item.date}`}
-                >
-                    Delete
-                </button>
-            </li>
-        );
-        // all iterated components should have a Key provided
-    });
+    const requestListItems = requests.map((item) => (
+        <li key={item.id} className="request-item">
+            <div className="info">
+                <strong>{item.type}</strong>
+                <span>
+                    {item.startDate.slice(0, 10)} → {item.endDate.slice(0, 10)}
+                </span>
+                <span>{item.reason}</span>
+                <span className={`status status-${item.status.toLowerCase()}`}>
+                    {item.status}
+                </span>
+            </div>
+            <button
+                className="btn-delete"
+                onClick={() => handleDelete(item.id)}
+                aria-label={`Delete ${item.type} request starting ${item.startDate.slice(0, 10)}`}
+            >
+                Delete
+            </button>
+        </li>
+    ));
 
     return (
         <div className="leave-container">
             <h1>Leave Requests</h1>
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
+
             <div className="form-box">
                 <h3>Submit a Request</h3>
                 <form onSubmit={handleAdd}>
                     <div className="input-group">
+                        <label htmlFor="employee-id">Employee ID:</label>
+                        <input
+                            id="employee-id"
+                            type="number"
+                            placeholder="e.g. 1"
+                            value={newEmployeeId}
+                            onChange={(e) => setNewEmployeeId(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="input-group">
                         <label htmlFor="leave-type">Type:</label>
-                        <select 
-                            id="leave-type" 
-                            value={newType} 
+                        <select
+                            id="leave-type"
+                            value={newType}
                             onChange={(e) => setNewType(e.target.value)}
                         >
                             <option value="Vacation">Vacation</option>
@@ -86,27 +108,36 @@ export default function LeaveRequests() {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="leave-date">Date:</label>
+                        <label htmlFor="leave-start">Start Date:</label>
                         {/*
-                            This is an example of a "controlled input" in which the value
-                            of the input is received from state.
+                            Controlled input — the displayed value is driven by React state.
                         */}
-                        <input 
-                            id="leave-date"
-                            type="date" 
-                            value={newDate} 
-                            onChange={(e) => setNewDate(e.target.value)} 
+                        <input
+                            id="leave-start"
+                            type="date"
+                            value={newStartDate}
+                            onChange={(e) => setNewStartDate(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="leave-end">End Date:</label>
+                        <input
+                            id="leave-end"
+                            type="date"
+                            value={newEndDate}
+                            onChange={(e) => setNewEndDate(e.target.value)}
                         />
                     </div>
 
                     <div className="input-group">
                         <label htmlFor="leave-reason">Reason:</label>
-                        <input 
+                        <input
                             id="leave-reason"
-                            type="text" 
-                            placeholder="Why?" 
-                            value={newReason} 
-                            onChange={(e) => setNewReason(e.target.value)} 
+                            type="text"
+                            placeholder="Why?"
+                            value={newReason}
+                            onChange={(e) => setNewReason(e.target.value)}
                         />
                     </div>
 
@@ -119,9 +150,7 @@ export default function LeaveRequests() {
                 {requests.length === 0 ? (
                     <p>No leave requests found.</p>
                 ) : (
-                    <ol>
-                        {requestListItems}
-                    </ol>
+                    <ol>{requestListItems}</ol>
                 )}
             </div>
         </div>
