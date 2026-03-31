@@ -1,9 +1,12 @@
 {
-  "name": "fullstack",
-  "private": true,
-  "version": "0.0.0",
-  "workspaces": [
-    "apps/frontend",
-    "apps/backend"
-  ]
+  "dependencies": {
+    "@prisma/client": "^7.6.0",
+    "destr": "^2.0.5",
+    "prisma": "^7.6.0",
+      "schema": "apps/backend/prisma/schema.prisma",
+    "rc9": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0"
+  }
 }

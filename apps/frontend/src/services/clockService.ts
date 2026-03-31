@@ -1,4 +1,5 @@
-import * as repo from "../repository/clockInOutRepository";
+/**
+ import * as repo from "../repository/clockInOutRepository";
 import { ClockInOut } from "../types/clock-in-out";
 
 export function getRecordsForEmployee(employeeId: number): ClockInOut[] {
@@ -40,4 +41,4 @@ export function clockOut(id: number, employeeId: number, location: string): void
 
 export function removeRecord(id: number): void {
   repo.remove(id);
-}
+} **/

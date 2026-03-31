@@ -2,7 +2,7 @@
 //import * as service from "../services/clockService";
 //import { ClockInOut } from "../types/clock-in-out";
 //import { useCurrentUser } from "./useCurrentUser";
-
+/**
 import { useEffect, useState } from "react";
 import { useCurrentUser } from "./index";
 import * as service from "../services/clockService";
@@ -85,4 +85,4 @@ export function useClockInOut() {
     handleClockOut,
     handleRemove
   };
-}
+} **/

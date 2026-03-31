@@ -1,9 +1,11 @@
+
 import { Employee } from "../types/employee";
 
-/**
- * Mock employee test data.
- * This data will be replaced with database data in the next module.
- */
+ /**
+  * Mock employee test data.
+  * This data will be replaced with database data in the next module.
+  */
+
 export const employeeData: Employee[] = [
   { id: 1, name: "Chenyang Ma", role: "Manager", department: "Human Resources" },
   { id: 2, name: "Jiyu Cai", role: "Manager", department: "Information Technology" },

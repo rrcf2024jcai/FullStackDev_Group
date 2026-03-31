@@ -1,28 +1,25 @@
 // import { SharedStateProps } from "../../../types";
 // import ClockInOut from "../../common/clock-in-out/ClockInOut";
 import { useCurrentUser } from "../../../hooks";
-import ClockInOut from "../../common/clock-in-out/ClockInOut";
+import ClockInOut from "../../common/clock-in-out/Clock";
 import "./TimePage.css";
-
-// function TimePage({ currentUser, setCurrentUser }: SharedStateProps) {
 
 export default function TimePage() {
   const { currentUser, switchUser } = useCurrentUser();
-  //const { records, errors, success, handleClockIn, handleClockOut } = useClockInOut();
+
+console.log("Rendering ClockInOut from:", ClockInOut);
 
   return (
     <section>
       <h2>Time Page</h2>
-      
-      {/* Display shared state */}
+
       <p>Viewing as: {currentUser}</p>
-      
-      {/* Modify shared state */}
+
       <div>
         <label>Switch User: </label>
         <select 
           value={currentUser} 
-          onChange={(e) => switchUser(e.target.value)} // Replaced setCurrentUser
+          onChange={(e) => switchUser(e.target.value)}
         >
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
@@ -30,8 +27,8 @@ export default function TimePage() {
         </select>
       </div>
 
-      <ClockInOut />
+      {/* Attendance / Clock In-Out Component */}
+      <ClockInOut employeeId={1} />
     </section>
   );
 }
-
