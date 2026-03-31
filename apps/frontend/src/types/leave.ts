@@ -1,9 +1,15 @@
 /**
- * Defines the structure for a Leave Request.
+ * Mirrors the LeaveRequest model in the Prisma schema.
+ * startDate / endDate are ISO strings when received from the API.
  */
 export interface LeaveRequest {
     id: number;
+    employeeId: number;
+    startDate: string;
+    endDate: string;
     type: string;
-    date: string;
     reason: string;
+    status: string;
+    createdAt?: string;
+    updatedAt?: string;
 }

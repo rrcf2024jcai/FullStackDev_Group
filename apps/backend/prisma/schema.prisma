@@ -32,7 +32,7 @@ model LeaveRequest {
   employeeId  Int
   startDate   DateTime
   endDate     DateTime
-  type        String   // "Sick", "Vacation", etc.
+  type        String   
   reason      String
   status      String   @default("Pending")
   createdAt   DateTime @default(now())

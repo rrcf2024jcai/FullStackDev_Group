@@ -29,7 +29,7 @@ export function useLeaveRequests() {
     };
 
     // Handler for adding a request
-    const addRequest = async (newItem: LeaveRequest) => {
+    const addRequest = async (newItem: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt">) => {
         try {
             await LeaveService.submitNewRequest(newItem);
             // Reload data to ensure UI is in sync with "backend"

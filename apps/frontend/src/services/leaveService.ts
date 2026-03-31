@@ -2,26 +2,41 @@ import * as LeaveRepo from "../apis/leaveRepo";
 import { LeaveRequest } from "../types/leave";
 
 /**
- * handles the business logic of the Leave Requests feature.
- * It acts as a bridge between the UI/Hook and the Data Repository.
+ * Handles the business logic of the Leave Requests feature.
+ * Acts as a bridge between the UI/Hook and the Data Repository.
  */
 
-// validateLeaveRequest handles the business logic of form validation.
-export function validateLeaveRequest(date: string, reason: string): {
-    isValid: boolean;
-    errors: string[];
-} {
+/**
+ * validateLeaveRequest checks all form fields before a network call is made.
+ */
+export function validateLeaveRequest(
+    employeeId: string,
+    startDate: string,
+    endDate: string,
+    reason: string
+): { isValid: boolean; errors: string[] } {
     let isValid = true;
     const errors: string[] = [];
 
-    // Business Logic: Fields cannot be empty
-    if (!date || !reason.trim()) {
+    if (!employeeId || isNaN(Number(employeeId))) {
         isValid = false;
-        errors.push("Please fill in the date and reason!");
+        errors.push("Please enter a valid Employee ID.");
     }
 
-    // Business Logic: Reason must be meaningful
-    if (reason.trim().length > 0 && reason.trim().length < 4) {
+    if (!startDate || !endDate) {
+        isValid = false;
+        errors.push("Please fill in both the start date and end date.");
+    }
+
+    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+        isValid = false;
+        errors.push("Start date must not be after end date.");
+    }
+
+    if (reason.trim().length === 0) {
+        isValid = false;
+        errors.push("Please provide a reason.");
+    } else if (reason.trim().length < 4) {
         isValid = false;
         errors.push("Reason is too short. Please provide more details.");
     }
@@ -29,31 +44,38 @@ export function validateLeaveRequest(date: string, reason: string): {
     return { isValid, errors };
 }
 
-// Business Logic: Format the data before sending it to Repository
-export function createLeaveObject(type: string, date: string, reason: string): LeaveRequest {
+/**
+ * Builds the leave request payload that will be sent to the repository.
+ */
+export function createLeaveObject(
+    employeeId: number,
+    type: string,
+    startDate: string,
+    endDate: string,
+    reason: string
+): Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt"> {
     return {
-        id: Date.now(), // Simple ID generation
-        type: type,
-        date: date,
-        reason: reason.trim()
+        employeeId,
+        type,
+        startDate,
+        endDate,
+        reason: reason.trim(),
     };
 }
 
 /**
- * Fetches all leave requests from the repository.
- * @returns Promise<LeaveRequest[]>
+ * Fetches all leave requests from the backend.
  */
 export async function fetchAllLeaves(): Promise<LeaveRequest[]> {
-    // We could add logic here (e.g. sorting by date) before returning
-    const data = LeaveRepo.fetchLeaveRequests();
-    return data;
+    return await LeaveRepo.fetchLeaveRequests();
 }
 
 /**
- * Submits a new leave request to the repository.
+ * Submits a new leave request to the backend.
  */
-export async function submitNewRequest(request: LeaveRequest): Promise<void> {
-    // We simply delegate to the repo, but in a real app we might check for duplicates here
+export async function submitNewRequest(
+    request: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt">
+): Promise<void> {
     await LeaveRepo.addLeaveRequest(request);
 }
 
