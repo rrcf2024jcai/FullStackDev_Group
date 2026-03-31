@@ -1,6 +1,6 @@
 import { Employee } from "../types/employee";
 
-const API_URL = "http://localhost:3000/api/employees";
+const API_URL = "http://localhost:3003/api/employees";
 
 // Get all employees
 export async function getAll(): Promise<Employee[]> {
