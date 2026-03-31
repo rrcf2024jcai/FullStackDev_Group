@@ -4,32 +4,28 @@ import { validateLeaveRequest, createLeaveObject } from "../../../services/leave
 import { useLeaveRequests } from "../../../hooks/useLeaveRequests";
 
 /**
- * This component handles the presentation logic for leave requests.
- * Data is now persisted to the backend database via the API.
+ * Presentation layer for the Leave Requests feature.
+ * Data is persisted to the backend database via the API.
  */
 export default function LeaveRequests() {
 
     const { requests, error, addRequest, removeRequest } = useLeaveRequests();
 
-    // Local state for controlled form inputs
     const [newEmployeeId, setNewEmployeeId] = useState<string>("");
-    const [newType, setNewType] = useState<string>("Vacation");
-    const [newStartDate, setNewStartDate] = useState<string>("");
-    const [newEndDate, setNewEndDate] = useState<string>("");
-    const [newReason, setNewReason] = useState<string>("");
+    const [newType, setNewType]             = useState<string>("Vacation");
+    const [newStartDate, setNewStartDate]   = useState<string>("");
+    const [newEndDate, setNewEndDate]       = useState<string>("");
+    const [newReason, setNewReason]         = useState<string>("");
 
     const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Delegate validation to the Service layer
         const validation = validateLeaveRequest(newEmployeeId, newStartDate, newEndDate, newReason);
-
         if (!validation.isValid) {
             alert(validation.errors[0]);
             return;
         }
 
-        // Use the Service to build the correctly-shaped payload
         const newItem = createLeaveObject(
             Number(newEmployeeId),
             newType,
@@ -38,10 +34,8 @@ export default function LeaveRequests() {
             newReason
         );
 
-        // Use the Hook to persist the data to the backend
         await addRequest(newItem);
 
-        // Clear inputs after success
         setNewEmployeeId("");
         setNewStartDate("");
         setNewEndDate("");
@@ -57,17 +51,19 @@ export default function LeaveRequests() {
             <div className="info">
                 <strong>{item.type}</strong>
                 <span>
-                    {item.startDate.slice(0, 10)} → {item.endDate.slice(0, 10)}
+                    {item.startDate.slice(0, 10)}
+                    {" \u2192 "}
+                    {item.endDate.slice(0, 10)}
                 </span>
                 <span>{item.reason}</span>
-                <span className={`status status-${item.status.toLowerCase()}`}>
+                <span className={"status status-" + item.status.toLowerCase()}>
                     {item.status}
                 </span>
             </div>
             <button
                 className="btn-delete"
                 onClick={() => handleDelete(item.id)}
-                aria-label={`Delete ${item.type} request starting ${item.startDate.slice(0, 10)}`}
+                aria-label={"Delete " + item.type + " request"}
             >
                 Delete
             </button>
@@ -109,9 +105,6 @@ export default function LeaveRequests() {
 
                     <div className="input-group">
                         <label htmlFor="leave-start">Start Date:</label>
-                        {/*
-                            Controlled input — the displayed value is driven by React state.
-                        */}
                         <input
                             id="leave-start"
                             type="date"

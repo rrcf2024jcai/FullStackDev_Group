@@ -16,13 +16,6 @@ export async function getAllLeaveRequests() {
 }
 
 /**
- * Fetches a single leave request by its primary key.
- */
-export async function getLeaveRequestById(id: number) {
-    return await prisma.leaveRequest.findUnique({ where: { id } });
-}
-
-/**
  * Creates a new leave request record.
  * startDate / endDate arrive as ISO date strings from the request body
  * and are converted to Date objects for Prisma.
