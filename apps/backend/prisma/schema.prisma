@@ -13,20 +13,18 @@ model Employee {
   lastName      String
   role          String
   department    String
-  clockRecords  ClockRecord[]
+  clockRecords  Attendance[]
   leaveRequests LeaveRequest[]
 }
 
-model ClockRecord {
+model Attendance {
   id          Int       @id @default(autoincrement())
   employeeId  Int
+  employee    Employee  @relation(fields: [employeeId], references: [id])
   clockIn     DateTime?
   clockOut    DateTime?
   locationIn  String?
   locationOut String?
-  createdAt   DateTime  @default(now())
-
-  employee   Employee @relation(fields: [employeeId], references: [id])
 }
 
 model LeaveRequest {

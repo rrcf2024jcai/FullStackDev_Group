@@ -1,6 +1,6 @@
 import { Router } from "express";
-import * as employeeController from "../controllers/employeeController.js";
-import { validateEmployee } from "../middleware/validateEmployee.js";
+import * as employeeController from "../controllers/employeeController";
+import { validateEmployee } from "../middleware/validateEmployee";
 
 const router = Router();
 

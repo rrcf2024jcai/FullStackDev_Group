@@ -1,2 +1,3 @@
+/**
 import pkg from '@prisma/client';
-export const PrismaClient = pkg.PrismaClient;
+export const PrismaClient = pkg.PrismaClient; **/
