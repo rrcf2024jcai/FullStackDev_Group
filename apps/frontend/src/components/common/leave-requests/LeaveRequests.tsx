@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LeaveRequests.css";
 import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
 import { useLeaveRequests } from "../../../hooks/useLeaveRequests";
+
+interface EmployeeOption {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
 
 /**
  * Presentation layer for the Leave Requests feature.
@@ -10,6 +16,15 @@ import { useLeaveRequests } from "../../../hooks/useLeaveRequests";
 export default function LeaveRequests() {
 
     const { requests, error, addRequest, removeRequest } = useLeaveRequests();
+
+    const [employees, setEmployees] = useState<EmployeeOption[]>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/employees")
+            .then((r) => r.json())
+            .then((data: EmployeeOption[]) => setEmployees(data))
+            .catch(() => {});
+    }, []);
 
     const [newEmployeeId, setNewEmployeeId] = useState<string>("");
     const [newType, setNewType]             = useState<string>("Vacation");
@@ -80,14 +95,19 @@ export default function LeaveRequests() {
                 <h3>Submit a Request</h3>
                 <form onSubmit={handleAdd}>
                     <div className="input-group">
-                        <label htmlFor="employee-id">Employee ID:</label>
-                        <input
+                        <label htmlFor="employee-id">Employee:</label>
+                        <select
                             id="employee-id"
-                            type="number"
-                            placeholder="e.g. 1"
                             value={newEmployeeId}
                             onChange={(e) => setNewEmployeeId(e.target.value)}
-                        />
+                        >
+                            <option value="">-- Select Employee --</option>
+                            {employees.map((emp) => (
+                                <option key={emp.id} value={String(emp.id)}>
+                                    {emp.firstName} {emp.lastName}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="input-group">
