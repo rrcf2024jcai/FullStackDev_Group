@@ -4,8 +4,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import prisma from "./prisma/prisma";
-import employeeRoutes from "../src/routes/employeeRoutes";
-import clockRoutes from "../src/routes/clockRoutes";
+import employeeRoutes from "./routes/employeeRoutes";
+import clockRoutes from "./routes/clockRoutes";
 
 dotenv.config();
 

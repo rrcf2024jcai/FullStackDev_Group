@@ -8,4 +8,7 @@ router.get("/", employeeController.getAll);
 router.post("/", validateEmployee, employeeController.add);
 router.delete("/:id", employeeController.remove);
 
+router.post("/", validateEmployee, employeeController.add);
+router.delete("/:id", employeeController.remove);
+
 export default router;
