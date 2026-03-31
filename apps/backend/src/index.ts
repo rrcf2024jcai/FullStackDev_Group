@@ -1,13 +1,16 @@
+console.log(">>> USING THIS BACKEND FILE <<<");
+
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import prisma from "./prisma/client.js";
-import employeeRoutes from "./routes/employeeRoutes.js";
+import prisma from "./prisma/prisma";
+import employeeRoutes from "./routes/employeeRoutes";
+import clockRoutes from "./routes/clockRoutes";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT || "3000", 10);
 
 app.use(cors({
   origin: "http://localhost:5173",
@@ -15,5 +18,10 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/api/employees", employeeRoutes);
+app.use("/api/clock", clockRoutes);
 
-app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
+app.listen(port, "127.0.0.1", () => {
+  console.log(`Server running on http://127.0.0.1:${port}`);
+});
+
+console.log(">>> BACKEND READY <<<");

@@ -107,6 +107,37 @@ The app focuses in emphasizing usability, scalability, and data-driven insights.
   - Added service methods for leave requests, records retrieval, and deletion.
   - Enhanced UI of the Leave Management page.
 
+## Sprint 4 - Team Member Tasks
+
+**Chenyang Ma**:
+- Completed the T.4 Back-end CORS Configuration.
+- Integrated and utilized CORS middleware to allow requests from our frontend.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Implemented the full employee list UI and interactions.
+  - Integrated forntend logic with the persistence layer in local storage/backened.
+  - Resolved all issues encountered to ensure Employee Directory page works smoothly.
+- Monitored the project board, ensuring tasks moved efficiently from Backlog to Completed stage.
+
+**Alyssa Urquiola**:
+- Completed the T.1 Back-end App Initialization and T.2 Development SQL Database.
+- Assisted in overall app integration to ensure smooth navigation and workflow.
+- Updated the README for Sprint 4 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Developed the Time Tracking Page and implemented state persistence for the attendance records.
+  - Integrated frontend logic with the persistence layer in local storage/backened.
+  - Resolved routing, component integration, and repository‑layer issues to ensure full functionality.
+- Created the Project Board for Sprint 4 and lead the task distribution among team members.
+
+**Jiyu Cai**
+- Completed the T.3 Prisma Installation and Client Initialization.
+- Developed UI and logic for submitting, viewing, and managing leave requests.
+- Organized our project folders and manages the push requests from develop branch.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Ensured the Leave Page aligned with the project’s design system and routing structure.
+  - Integrated frontend logic with the persistence layer in local storage/backened.
+  - Modified the Leav Page and contributed to UI consistency across pages.
+- Monitored the project board, ensuring tasks moved efficiently from Backlog to Completed stage.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -1,4 +1,4 @@
-import * as employeeRepository from "../repositories/employeeRepository.js";
+import * as employeeRepository from "../repositories/employeeRepository";
 
 export async function getAllEmployees() {
   return await employeeRepository.getAll();

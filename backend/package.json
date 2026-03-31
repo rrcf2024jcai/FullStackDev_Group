@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "@prisma/config": "^7.6.0",
+    "ts-node": "^10.9.2"
+  }
+}
