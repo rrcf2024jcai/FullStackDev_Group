@@ -23,7 +23,9 @@ console.log("Rendering ClockInOut from:", ClockInOut);
         >
           <option value="Admin">Admin</option>
           <option value="Manager">Manager</option>
-          <option value="Employee">Employee</option>
+          <option value="Employee">Employee - Alyssa Urquiola</option>
+          <option value="Employee2">Employee - Chenyang Ma</option>
+          <option value="Employee3">Employee - Jiyu Cai</option>
         </select>
       </div>
 
