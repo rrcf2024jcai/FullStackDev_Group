@@ -3,7 +3,8 @@
  */
 export interface Employee {
     id: number;
-    name: string;
+    firstName: string;  
+    lastName: string;
     role: string;
     department: string;
 }
