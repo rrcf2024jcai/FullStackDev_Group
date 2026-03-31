@@ -4,16 +4,16 @@ import { validateLeave } from "../middleware/validateLeave";
 
 const router = Router();
 
-// GET    /api/leave           — fetch all leave requests
+// GET    /api/leave        
 router.get("/", leaveController.getAll);
 
-// POST   /api/leave           — submit a new leave request (validated)
+// POST   /api/leave        
 router.post("/", validateLeave, leaveController.create);
 
-// PATCH  /api/leave/:id/status — approve or reject a request
+// PATCH  /api/leave/:id/status
 router.patch("/:id/status", leaveController.updateStatus);
 
-// DELETE /api/leave/:id       — remove a leave request
+// DELETE /api/leave/:id 
 router.delete("/:id", leaveController.remove);
 
 export default router;

@@ -3,7 +3,6 @@ CREATE TABLE "Employee" (
     "id" SERIAL NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "department" TEXT NOT NULL,
 
@@ -11,15 +10,15 @@ CREATE TABLE "Employee" (
 );
 
 -- CreateTable
-CREATE TABLE "ClockRecord" (
+CREATE TABLE "Attendance" (
     "id" SERIAL NOT NULL,
     "employeeId" INTEGER NOT NULL,
-    "time" TIMESTAMP(3) NOT NULL,
-    "location" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "clockIn" TIMESTAMP(3),
+    "clockOut" TIMESTAMP(3),
+    "locationIn" TEXT,
+    "locationOut" TEXT,
 
-    CONSTRAINT "ClockRecord_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Attendance_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -37,11 +36,8 @@ CREATE TABLE "LeaveRequest" (
     CONSTRAINT "LeaveRequest_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "Employee_email_key" ON "Employee"("email");
-
 -- AddForeignKey
-ALTER TABLE "ClockRecord" ADD CONSTRAINT "ClockRecord_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "LeaveRequest" ADD CONSTRAINT "LeaveRequest_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
