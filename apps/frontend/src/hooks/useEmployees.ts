@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "@clerk/clerk-react";
 import { Employee } from "../types/employee";
 import * as employeeService from "../services/employeeService";
 
 // This hook manages employee data for components
 // It returns the employee list, search, add and delete functions
 export function useEmployees() {
+  const { getToken } = useAuth();
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
@@ -24,7 +26,12 @@ export function useEmployees() {
 
   // Add a new employee through service
   const handleAdd = async (employee: Omit<Employee, "id">) => {
-    const result = await employeeService.addEmployee(employee);
+    const token = await getToken();
+    if (!token) {
+      setErrors(["You must be logged in to add an employee."]);
+      return false;
+    }
+    const result = await employeeService.addEmployee(employee, token);
     if (!result.success) {
       setErrors(result.errors);
       return false;
@@ -36,7 +43,9 @@ export function useEmployees() {
 
   // Remove an employee through service
   const handleDelete = async (id: number) => {
-    await employeeService.deleteEmployee(id);
+    const token = await getToken();
+    if (!token) return;
+    await employeeService.deleteEmployee(id, token);
     await loadEmployees();
   };
 
