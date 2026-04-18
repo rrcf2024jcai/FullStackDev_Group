@@ -7,6 +7,7 @@ import prisma from "./prisma/prisma";
 import employeeRoutes from "./routes/employeeRoutes";
 import clockRoutes from "./routes/clockRoutes";
 import leaveRoutes from "./routes/leaveRoutes";
+import userRoutes from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/api/employees", employeeRoutes);
 app.use("/api/clock", clockRoutes);
 app.use("/api/leave", leaveRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(port, "127.0.0.1", () => {
   console.log(`Server running on http://127.0.0.1:${port}`);
