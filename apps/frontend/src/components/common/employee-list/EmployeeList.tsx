@@ -6,6 +6,10 @@ interface EmployeeListProps {
 }
 
 function EmployeeList({ employees, onDelete }: EmployeeListProps) {
+  if (!Array.isArray(employees)) {
+    return <p style={{ color: 'red' }}>Error loading employees. Please check the backend.</p>;
+  }
+
   return (
     <section className="employee-list">
       <h3>Employee List</h3>
