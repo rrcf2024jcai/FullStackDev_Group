@@ -1,19 +1,16 @@
-// import { useState } from "react";
-import UserInfo from "./components/UserInfo/UserInfo";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import "./App.css";
+import UserInfo from "./components/UserInfo/UserInfo";
+// Import Pages
 import HomePage from "./components/pages/HomePage/HomePage";
 import EmployeePage from "./components/pages/EmployeePage/EmployeePage";
 import TimePage from "./components/pages/TimePage/TimePage";
 import LeavePage from "./components/pages/LeavePage/LeavePage";
-import { useCurrentUser } from "./hooks"; // Replaced the useEmployees from hooks
+import { useCurrentUser } from "./hooks";  
+import Nav from "./components/layout/nav/Nav";
 
 function App() {
-  // Shared state - current logged in user
-  // Shared-page-state Refactor
-  // const [currentUser, setCurrentUser] = useState("Admin");
-
-  // T.3 Shared-page-state refactor
   const {currentUser} = useCurrentUser();
 
   return (
@@ -33,35 +30,39 @@ function App() {
           <UserInfo currentUser={currentUser} />
         </header>
 
-        
-        {/* Navigation */}
-        <nav className="main-nav">
-          <Link to="/">Home</Link>
-          <Link to="/employees">Employees</Link>
-          <Link to="/time">Time Tracking</Link>
-          <Link to="/leave">Leave Requests</Link>
-        </nav>
-    
-        {/* Old Routes to be removed after T.3
+{/* Our new navigation bar with Clerk Auth */}
+        <Nav />
+
         <main className="dashboard-content">
           <Routes>
-            <Route path="/" element={<HomePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
-            <Route path="/employees" element={<EmployeePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
-            <Route path="/time" element={<TimePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
-            <Route path="/leave" element={<LeavePage currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+            {/* Public Route: Anyone can see the Home Page */}
+            <Route path="/" element={<HomePage />} />
+
+            {/* Protected Route: Employees */}
+            <Route path="/employees" element={
+              <>
+                <SignedIn><EmployeePage /></SignedIn>
+                <SignedOut><RedirectToSignIn /></SignedOut>
+              </>
+            } />
+
+            {/* Protected Route: Time */}
+            <Route path="/time" element={
+              <>
+                <SignedIn><TimePage /></SignedIn>
+                <SignedOut><RedirectToSignIn /></SignedOut>
+              </>
+            } />
+
+            {/* Protected Route: Leave */}
+            <Route path="/leave" element={
+              <>
+                <SignedIn><LeavePage /></SignedIn>
+                <SignedOut><RedirectToSignIn /></SignedOut>
+              </>
+            } />
           </Routes>
         </main>
-        */}
-
-        {/* New Routes */}
-        <main className="dashboard-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/employees" element={<EmployeePage />} />
-            <Route path="/time" element={<TimePage />} />
-            <Route path="/leave" element={<LeavePage />} />
-          </Routes>
-        </main> 
 
         {/* Footer with Group Member Names */}
         <footer className="main-footer" style={{ backgroundColor: '#F1F5F9', color: '#333', borderTop: '1px solid #ccc'}}>
