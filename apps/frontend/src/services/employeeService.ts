@@ -35,16 +35,16 @@ export async function getAllEmployees(): Promise<Employee[]> {
 }
 
 // Add employee - validate first, then save to repository
-export async function addEmployee(employee: Omit<Employee, "id">): Promise<{ success: boolean; errors: string[] }> {
+export async function addEmployee(employee: Omit<Employee, "id">, token: string): Promise<{ success: boolean; errors: string[] }> {
     const validation = validateNewEmployee(employee.firstName, employee.lastName, employee.role, employee.department);
     if (!validation.isValid) {
         return { success: false, errors: validation.errors };
     }
-    await employeeRepository.add(employee);
+    await employeeRepository.add(employee, token);
     return { success: true, errors: [] };
 }
 
 // Delete employee from repository
-export async function deleteEmployee(id: number): Promise<boolean> {
-    return await employeeRepository.remove(id);
+export async function deleteEmployee(id: number, token: string): Promise<boolean> {
+    return await employeeRepository.remove(id, token);
 }

@@ -3,13 +3,10 @@ import { Employee } from "../../../types";
 interface EmployeeListProps {
   employees: Employee[];
   onDelete: (id: number) => void;
+  showDelete?: boolean;
 }
 
-function EmployeeList({ employees, onDelete }: EmployeeListProps) {
-  if (!Array.isArray(employees)) {
-    return <p style={{ color: 'red' }}>Error loading employees. Please check the backend.</p>;
-  }
-
+function EmployeeList({ employees, onDelete, showDelete = true }: EmployeeListProps) {
   return (
     <section className="employee-list">
       <h3>Employee List</h3>
@@ -20,7 +17,7 @@ function EmployeeList({ employees, onDelete }: EmployeeListProps) {
           {employees.map((employee) => (
             <li key={employee.id}>
               <span>{employee.firstName} {employee.lastName} - {employee.role} - {employee.department}</span>
-              <button onClick={() => onDelete(employee.id)}>Delete</button>
+              {showDelete && <button onClick={() => onDelete(employee.id)}>Delete</button>}
             </li>
           ))}
         </ul>
