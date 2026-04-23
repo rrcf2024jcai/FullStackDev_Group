@@ -3,11 +3,13 @@ import * as leaveService from "../services/leaveService";
 
 /**
  * GET /api/leave
- * Returns all leave requests, newest first.
+ * 🛡️ Updated for Sprint 5: Only return leaves for the logged-in user.
  */
 export async function getAll(req: Request, res: Response, next: NextFunction) {
     try {
-        const leaves = await leaveService.getAllLeaveRequests();
+        const clerkUserId = (req as any).auth.userId; 
+
+        const leaves = await leaveService.getAllLeaveRequests(clerkUserId);
         res.json(leaves);
     } catch (err) {
         next(err);
@@ -16,13 +18,15 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 /**
  * POST /api/leave
- * Creates a new leave request. Body is validated by validateLeave middleware.
+ * Updated for Sprint 5: Create request tied to the logged-in user.
  */
 export async function create(req: Request, res: Response, next: NextFunction) {
     try {
-        const { employeeId, startDate, endDate, type, reason } = req.body;
+        const clerkUserId = (req as any).auth.userId;
+        const { startDate, endDate, type, reason } = req.body; 
+        
         const leave = await leaveService.createLeaveRequest({
-            employeeId: Number(employeeId),
+            clerkUserId, 
             startDate,
             endDate,
             type,
@@ -36,7 +40,6 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 
 /**
  * PATCH /api/leave/:id/status
- * Updates only the status field of an existing leave request.
  */
 export async function updateStatus(req: Request, res: Response, next: NextFunction) {
     try {
@@ -51,12 +54,14 @@ export async function updateStatus(req: Request, res: Response, next: NextFuncti
 
 /**
  * DELETE /api/leave/:id
- * Removes a leave request permanently.
+ * 🛡️ Updated for Sprint 5: Ensure only the user who created it can delete it.
  */
 export async function remove(req: Request, res: Response, next: NextFunction) {
     try {
+        const clerkUserId = (req as any).auth.userId;
         const id = parseInt(req.params.id);
-        await leaveService.deleteLeaveRequest(id);
+        
+        await leaveService.deleteLeaveRequest(id, clerkUserId); 
         res.json({ message: "Leave request deleted." });
     } catch (err) {
         next(err);
