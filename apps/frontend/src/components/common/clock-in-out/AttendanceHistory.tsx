@@ -32,7 +32,7 @@ export default function AttendanceHistory({ employeeId }: { employeeId: number }
         {records.map((r) => (
           <li key={r.id} className="border p-2 rounded flex justify-between items-start gap-4">
             <div>
-              <p><strong>Employee:</strong> {r.employee?.name ?? "Alyssa Urquiola"}</p>
+              <p><strong>Employee:</strong> {r.employee?.name ?? "Unknown"}</p>
               <p><strong>Clock In:</strong> {formatTime(r.clockIn)}</p>
               <p><strong>Clock Out:</strong> {formatTime(r.clockOut)}</p>
               <p><strong>Location In:</strong> {r.locationIn ?? "—"}</p>
