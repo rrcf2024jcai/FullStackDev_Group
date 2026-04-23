@@ -65,23 +65,27 @@ export function createLeaveObject(
 
 /**
  * Fetches all leave requests from the backend.
+ * Updated to accept and pass the token
  */
-export async function fetchAllLeaves(): Promise<LeaveRequest[]> {
-    return await LeaveRepo.fetchLeaveRequests();
+export async function fetchAllLeaves(token: string): Promise<LeaveRequest[]> {
+    return await LeaveRepo.fetchLeaveRequests(token);
 }
 
 /**
  * Submits a new leave request to the backend.
+ * Updated to accept and pass the token
  */
 export async function submitNewRequest(
-    request: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt">
+    request: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt">,
+    token: string
 ): Promise<void> {
-    await LeaveRepo.addLeaveRequest(request);
+    await LeaveRepo.addLeaveRequest(request, token);
 }
 
 /**
  * Removes a request by ID.
+ * Updated to accept and pass the token
  */
-export async function removeRequest(id: number): Promise<void> {
-    await LeaveRepo.deleteLeaveRequest(id);
+export async function removeRequest(id: number, token: string): Promise<void> {
+    await LeaveRepo.deleteLeaveRequest(id, token);
 }
