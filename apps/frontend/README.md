@@ -138,6 +138,39 @@ The app focuses in emphasizing usability, scalability, and data-driven insights.
   - Modified the Leav Page and contributed to UI consistency across pages.
 - Monitored the project board, ensuring tasks moved efficiently from Backlog to Completed stage.
 
+## Sprint 5 - Team Member Tasks
+
+**Chenyang Ma**:
+- Completed the T.1 and T.4 requirements.
+- Added User Model to Prisma Schema with clerkId and migration.
+- Installed Clerk-React in frontend and configured ClerkProvider in main.tsx.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Employee POST and DELETE endpoints require Clerk auth (requireAuth middleware)
+  - Frontend sends session token with add and delete requests using useAuth getToken
+  - Logged-in users see Add Employee form and Delete buttons
+  - Guest users can only view employee list and search
+
+**Alyssa Urquiola**:
+- Completed the T.4 Local Setup Instructions.
+- Created README.md file that includes 'Local Setup' section.
+- Installed missing frontend dependencies and fixed all TypeScript build issues.
+- Updated the README for Sprint 5 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Integrated Clerk authentication in the frontend and ensured the Time Page components correctly detect whether a user is signed in or not.
+  - Backend request with session token. The Clock-In button sends a POST request to the backend.
+  - The Clock-out button sends a similar authenticated request.
+  - When clicked Refresh, it displays the attendance history after the user completed the clock-in and clock-out.
+
+**Jiyu Cai**
+- Completed the T.3 User Login/Registration.
+- Integrated Clerk React SDK to manage user authentication (login/registration).
+- Handles in updating the application UI, including the HopePase to display welcome message for guests and a different dashboard view for logged-in users.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Implemented Clek authentication to ensure only authenticated users can access the Leave Request Page.
+  - Displays a fallback message when the page failed to load.
+  - Implemeted a Leave Request form that sends a POST request to the backend.
+
+  
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
