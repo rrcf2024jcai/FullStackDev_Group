@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom/client";
-import { ClerkProvider } from "@clerk/clerk-react";
 import App from "./App";
 import { UserProvider } from "./context/userContext";
 import { ClerkProvider } from '@clerk/clerk-react';
