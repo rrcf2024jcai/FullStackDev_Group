@@ -26,15 +26,15 @@ export function useLeaveRequests() {
         }
     };
 
-    const addRequest = async (newItem: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt">) => {
+    const addRequest = async (newItem: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt" | "employeeId">) => {
         try {
-            const token = await getToken(); 
+            const token = await getToken();
             if (!token) return;
 
             await LeaveService.submitNewRequest(newItem, token);
             await loadRequests();
         } catch (err) {
-            setError("Failed to add request.");
+            setError(err instanceof Error ? err.message : "Failed to add request.");
         }
     };
 

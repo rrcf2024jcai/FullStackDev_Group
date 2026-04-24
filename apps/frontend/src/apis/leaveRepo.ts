@@ -24,20 +24,22 @@ export async function fetchLeaveRequests(token: string): Promise<LeaveRequest[]>
  * Added token parameter.
  */
 export async function addLeaveRequest(
-    request: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt">,
+    request: Omit<LeaveRequest, "id" | "status" | "createdAt" | "updatedAt" | "employeeId">,
     token: string
 ): Promise<LeaveRequest> {
     const res = await fetch(API_URL, {
         method: "POST",
-        headers: { 
+        headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` 
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(request),
     });
     if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.errors?.[0] ?? "Failed to submit leave request.");
+        const body = await res.json();
+        // backend returns { errors: string[] } from middleware or { error: string } from service
+        const msg = body.errors?.[0] ?? body.error ?? "Failed to submit leave request.";
+        throw new Error(msg);
     }
     return res.json();
 }
