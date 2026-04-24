@@ -1,57 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./LeaveRequests.css";
 import { validateLeaveRequest, createLeaveObject } from "../../../services/leaveService";
 import { useLeaveRequests } from "../../../hooks/useLeaveRequests";
 
-interface EmployeeOption {
-    id: number;
-    firstName: string;
-    lastName: string;
-}
-
 /**
  * Presentation layer for the Leave Requests feature.
  * Data is persisted to the backend database via the API.
+ * The backend determines the employee from the Clerk session — the frontend
+ * does not need to send or select an employeeId.
  */
 export default function LeaveRequests() {
 
     const { requests, error, addRequest, removeRequest } = useLeaveRequests();
 
-    const [employees, setEmployees] = useState<EmployeeOption[]>([]);
-
-    useEffect(() => {
-        fetch("http://localhost:3000/api/employees")
-            .then((r) => r.json())
-            .then((data: EmployeeOption[]) => setEmployees(data))
-            .catch(() => {});
-    }, []);
-
-    const [newEmployeeId, setNewEmployeeId] = useState<string>("");
-    const [newType, setNewType]             = useState<string>("Vacation");
-    const [newStartDate, setNewStartDate]   = useState<string>("");
-    const [newEndDate, setNewEndDate]       = useState<string>("");
-    const [newReason, setNewReason]         = useState<string>("");
+    const [newType, setNewType]           = useState<string>("Vacation");
+    const [newStartDate, setNewStartDate] = useState<string>("");
+    const [newEndDate, setNewEndDate]     = useState<string>("");
+    const [newReason, setNewReason]       = useState<string>("");
 
     const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const validation = validateLeaveRequest(newEmployeeId, newStartDate, newEndDate, newReason);
+        const validation = validateLeaveRequest(newStartDate, newEndDate, newReason);
         if (!validation.isValid) {
             alert(validation.errors[0]);
             return;
         }
 
-        const newItem = createLeaveObject(
-            Number(newEmployeeId),
-            newType,
-            newStartDate,
-            newEndDate,
-            newReason
-        );
+        const newItem = createLeaveObject(newType, newStartDate, newEndDate, newReason);
 
         await addRequest(newItem);
 
-        setNewEmployeeId("");
         setNewStartDate("");
         setNewEndDate("");
         setNewReason("");
@@ -61,29 +40,36 @@ export default function LeaveRequests() {
         await removeRequest(idToDelete);
     };
 
-    const requestListItems = requests.map((item) => (
-        <li key={item.id} className="request-item">
-            <div className="info">
-                <strong>{item.type}</strong>
-                <span>
-                    {item.startDate.slice(0, 10)}
-                    {" \u2192 "}
-                    {item.endDate.slice(0, 10)}
-                </span>
-                <span>{item.reason}</span>
-                <span className={"status status-" + item.status.toLowerCase()}>
-                    {item.status}
-                </span>
-            </div>
-            <button
-                className="btn-delete"
-                onClick={() => handleDelete(item.id)}
-                aria-label={"Delete " + item.type + " request"}
-            >
-                Delete
-            </button>
-        </li>
-    ));
+    const requestListItems = requests.map((item) => {
+        const name = item.employee
+            ? `${item.employee.firstName} ${item.employee.lastName}`
+            : `Employee #${item.employeeId}`;
+
+        return (
+            <li key={item.id} className="request-item">
+                <div className="info">
+                    <strong>{item.type}</strong>
+                    <span className="request-employee">{name}</span>
+                    <span>
+                        {item.startDate.slice(0, 10)}
+                        {" → "}
+                        {item.endDate.slice(0, 10)}
+                    </span>
+                    <span>{item.reason}</span>
+                    <span className={"status status-" + item.status.toLowerCase()}>
+                        {item.status}
+                    </span>
+                </div>
+                <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(item.id)}
+                    aria-label={"Delete " + item.type + " request"}
+                >
+                    Delete
+                </button>
+            </li>
+        );
+    });
 
     return (
         <div className="leave-container">
@@ -94,22 +80,6 @@ export default function LeaveRequests() {
             <div className="form-box">
                 <h3>Submit a Request</h3>
                 <form onSubmit={handleAdd}>
-                    <div className="input-group">
-                        <label htmlFor="employee-id">Employee:</label>
-                        <select
-                            id="employee-id"
-                            value={newEmployeeId}
-                            onChange={(e) => setNewEmployeeId(e.target.value)}
-                        >
-                            <option value="">-- Select Employee --</option>
-                            {employees.map((emp) => (
-                                <option key={emp.id} value={String(emp.id)}>
-                                    {emp.firstName} {emp.lastName}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
                     <div className="input-group">
                         <label htmlFor="leave-type">Type:</label>
                         <select

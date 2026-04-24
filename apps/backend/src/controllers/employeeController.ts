@@ -22,11 +22,6 @@ export async function add(req: Request, res: Response) {
 }
 
 export async function remove(req: Request, res: Response) {
-    res.status(500).json({ error: "Failed to add employee" });
-  }
-}
-
-export async function remove(req: Request, res: Response) {
   try {
     const id = parseInt(req.params["id"] as string);
     await employeeService.deleteEmployee(id);

@@ -1,13 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import * as leaveService from "../services/leaveService";
+import { getAuth } from "@clerk/express"; 
 
 /**
  * GET /api/leave
- * Returns all leave requests, newest first.
  */
 export async function getAll(req: Request, res: Response, next: NextFunction) {
     try {
-        const leaves = await leaveService.getAllLeaveRequests();
+        const { userId } = getAuth(req); 
+        
+        if (!userId) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+
+        const leaves = await leaveService.getAllLeaveRequests(userId);
         res.json(leaves);
     } catch (err) {
         next(err);
@@ -16,13 +22,18 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 /**
  * POST /api/leave
- * Creates a new leave request. Body is validated by validateLeave middleware.
  */
 export async function create(req: Request, res: Response, next: NextFunction) {
     try {
-        const { employeeId, startDate, endDate, type, reason } = req.body;
+        const { userId } = getAuth(req); 
+        if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+        console.log("My Clerk is :", userId);
+
+        const { startDate, endDate, type, reason } = req.body; 
+        
         const leave = await leaveService.createLeaveRequest({
-            employeeId: Number(employeeId),
+            clerkUserId: userId, 
             startDate,
             endDate,
             type,
@@ -36,7 +47,6 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 
 /**
  * PATCH /api/leave/:id/status
- * Updates only the status field of an existing leave request.
  */
 export async function updateStatus(req: Request, res: Response, next: NextFunction) {
     try {
@@ -51,12 +61,15 @@ export async function updateStatus(req: Request, res: Response, next: NextFuncti
 
 /**
  * DELETE /api/leave/:id
- * Removes a leave request permanently.
  */
 export async function remove(req: Request, res: Response, next: NextFunction) {
     try {
+        const { userId } = getAuth(req);
+        if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
         const id = parseInt(req.params.id);
-        await leaveService.deleteLeaveRequest(id);
+        
+        await leaveService.deleteLeaveRequest(id, userId); 
         res.json({ message: "Leave request deleted." });
     } catch (err) {
         next(err);

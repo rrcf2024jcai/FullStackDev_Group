@@ -5,12 +5,11 @@ import { Request, Response, NextFunction } from "express";
  * Mirrors the pattern used in validateEmployee.ts.
  */
 export function validateLeave(req: Request, res: Response, next: NextFunction) {
-    const { employeeId, startDate, endDate, type, reason } = req.body;
+    const { startDate, endDate, type, reason } = req.body;
     const errors: string[] = [];
 
-    if (!employeeId || isNaN(Number(employeeId))) {
-        errors.push("employeeId must be a valid number.");
-    }
+    // employeeId is intentionally NOT validated here — the controller resolves
+    // it from the Clerk session token so the client never needs to send it.
 
     if (!startDate) {
         errors.push("startDate is required.");

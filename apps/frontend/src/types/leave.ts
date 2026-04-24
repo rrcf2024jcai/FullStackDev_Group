@@ -12,4 +12,5 @@ export interface LeaveRequest {
     status: string;
     createdAt?: string;
     updatedAt?: string;
+    employee?: { firstName: string; lastName: string };
 }
