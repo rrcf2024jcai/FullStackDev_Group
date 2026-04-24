@@ -14,18 +14,26 @@ export async function getById(id: number): Promise<Employee | undefined> {
   return res.json();
 }
 
-// Add a new employee
-export async function add(employee: Omit<Employee, "id">): Promise<Employee> {
+// Add a new employee (requires auth token)
+export async function add(employee: Omit<Employee, "id">, token: string): Promise<Employee> {
   const res = await fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
     body: JSON.stringify(employee),
   });
   return res.json();
 }
 
-// Delete an employee by ID
-export async function remove(id: number): Promise<boolean> {
-  const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+// Delete an employee by ID (requires auth token)
+export async function remove(id: number, token: string): Promise<boolean> {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
   return res.ok;
 }

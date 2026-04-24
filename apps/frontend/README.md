@@ -1,0 +1,246 @@
+# TimePilot Attendance and Leave Tracker Application
+
+## Group 3 Members
+
+- Alyssa Urquiola
+- Chenyang Ma
+- Jiyu Cai
+
+## Project General Description
+
+Our chosen app is inspired by Darwinbox, an attendance tracker used by several companies nationwide.
+The app focuses in emphasizing usability, scalability, and data-driven insights.
+
+## Scope of our chosen app:
+
+- Employee login
+- Clock In / Clock Out
+- View Attendance history
+- Manager approval
+
+## High-Level User Stories
+
+- As an employee, I want to record my clock in - clock out… so that my daily work hours are recorded and captured accurately.
+- As a manager, I want to track my team’s attendance records through a simple web interface… so that I can monitor their attendance and filed leaves.
+- As an HR Associate, I want to generate attendance reports efficiently... so that I can process employees’ payroll accurately.
+
+## Sprint 1 - Team Member Tasks
+
+**Chenyang Ma**:
+- **Employee Directory Feature Page** - responsible for the Employee list.
+- Managed the App Stylesheet and Style Guide.
+- Worked on the App.css.
+- Contributed in the App integration.
+- Completed all individual requirements.
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Alyssa Urquiola**:
+- **Time Tracking Feature Page** - responsible for the clock-in and clock-out records.
+- Modified the README and markdown file.
+- Worked on the Project initialization.
+- Contributed in the App integration.
+- Completed all individual requirements.
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Jiyu Cai**:
+- **Leave Requests Feature Page** - responsible for the leave requests page.
+- Set up the Git Repository and Team Vercel account/management.
+- Build the Home Page and link to all feature pages.
+- Contributed in the App integration.
+- Completed all individual reqirements.
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+## Sprint 2 - Team Member Tasks
+
+**Chenyang Ma**:
+- Build the T.1 Multi-page navigation where users can navigate to different sections of the app.
+- Managed the routers, shared state across pages, and made changes in the app.tsx.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Page contains Form Component (1.2 - Seacrh Form).
+  - Page contains Element Add/Remove (I.3 - Add/Delete Employee).
+  - Page has a distinct purpose from other feature pages
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Alyssa Urquiola**:
+- Modified the T.2 Naviagtion Interfaces.
+- Update the README for Sprint 2 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Page contains Form Component (1.2 - Text field) where the app will asks for user's location.
+  - Page contains Element Add/Remove (I.3 - Remove button in the Attendance Log).
+  - Page has a distinct purpose from other feature pages.
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Jiyu Cai**
+- Enhancements for T.3 Shared state across pages.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Page contains Form Component (1.2 - Request Validation Form).
+  - Page contains Element Add/Remove (I.3 - Delete Request).
+  - Page has a distinct purpose from other feature pages
+- Work on the Sprint 1 T.4 App.tsx:
+  - Add the application name in the header.
+  - Put member names in the footer.
+
+## Sprint 3 - Team Member Tasks
+
+**Chenyang Ma**:
+- Configured the T.1 Hook Definitions.
+- Managed the logic presentation rather than business or access data logic.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Ensured the Emploee list UI reads all data and actions directly from the hook.
+  - Added total employee number in the Home page.
+  - Enhanced UI of the Employees page.
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Alyssa Urquiola**:
+- Modified the T.3 Shared-page-state Refactor.
+- Updated the README for Sprint 3 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Removed local component state and prop-drilling from Sprint 2 by connecting the page to global user state (useCurrentUser).
+  - Standardized the page structure to match the Sprint 3 architecture used across other pages (Employee list and Leave Management).
+- Tracked the project board and ensure all tasks are moving from backlog to completed stage.
+
+**Jiyu Cai**
+- Handled the T.2 Service Definition.
+- Ensured the hook calls the service across the app instead of manipulating data directly.
+- Organized our project folders and manages the push requests from develop branch.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Added service methods for leave requests, records retrieval, and deletion.
+  - Enhanced UI of the Leave Management page.
+
+## Sprint 4 - Team Member Tasks
+
+**Chenyang Ma**:
+- Completed the T.4 Back-end CORS Configuration.
+- Integrated and utilized CORS middleware to allow requests from our frontend.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Implemented the full employee list UI and interactions.
+  - Integrated forntend logic with the persistence layer in local storage/backened.
+  - Resolved all issues encountered to ensure Employee Directory page works smoothly.
+- Monitored the project board, ensuring tasks moved efficiently from Backlog to Completed stage.
+
+**Alyssa Urquiola**:
+- Completed the T.1 Back-end App Initialization and T.2 Development SQL Database.
+- Assisted in overall app integration to ensure smooth navigation and workflow.
+- Updated the README for Sprint 4 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Developed the Time Tracking Page and implemented state persistence for the attendance records.
+  - Integrated frontend logic with the persistence layer in local storage/backened.
+  - Resolved routing, component integration, and repository‑layer issues to ensure full functionality.
+- Created the Project Board for Sprint 4 and lead the task distribution among team members.
+
+**Jiyu Cai**
+- Completed the T.3 Prisma Installation and Client Initialization.
+- Developed UI and logic for submitting, viewing, and managing leave requests.
+- Organized our project folders and manages the push requests from develop branch.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Ensured the Leave Page aligned with the project’s design system and routing structure.
+  - Integrated frontend logic with the persistence layer in local storage/backened.
+  - Modified the Leav Page and contributed to UI consistency across pages.
+- Monitored the project board, ensuring tasks moved efficiently from Backlog to Completed stage.
+
+## Sprint 5 - Team Member Tasks
+
+**Chenyang Ma**:
+- Completed the T.1 and T.4 requirements.
+- Added User Model to Prisma Schema with clerkId and migration.
+- Installed Clerk-React in frontend and configured ClerkProvider in main.tsx.
+- **Employee Directory Feature Page** - completed all individual requirements.
+  - Employee POST and DELETE endpoints require Clerk auth (requireAuth middleware)
+  - Frontend sends session token with add and delete requests using useAuth getToken
+  - Logged-in users see Add Employee form and Delete buttons
+  - Guest users can only view employee list and search
+
+**Alyssa Urquiola**:
+- Completed the T.4 Local Setup Instructions.
+- Created README.md file that includes 'Local Setup' section.
+- Installed missing frontend dependencies and fixed all TypeScript build issues.
+- Updated the README for Sprint 5 documentation.
+- **Time Tracking Feature Page** - completed all individual requirements.
+  - Integrated Clerk authentication in the frontend and ensured the Time Page components correctly detect whether a user is signed in or not.
+  - Backend request with session token. The Clock-In button sends a POST request to the backend.
+  - The Clock-out button sends a similar authenticated request.
+  - When clicked Refresh, it displays the attendance history after the user completed the clock-in and clock-out.
+
+**Jiyu Cai**
+- Completed the T.3 User Login/Registration.
+- Integrated Clerk React SDK to manage user authentication (login/registration).
+- Handles in updating the application UI, including the HopePase to display welcome message for guests and a different dashboard view for logged-in users.
+- **Leave Requests Feature Page** - completed all individual requirements.
+  - Implemented Clek authentication to ensure only authenticated users can access the Leave Request Page.
+  - Displays a fallback message when the page failed to load.
+  - Implemeted a Leave Request form that sends a POST request to the backend.
+
+  
+# React + TypeScript + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

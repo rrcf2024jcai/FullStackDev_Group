@@ -82,8 +82,15 @@ h3 {
 }
 
 .info span {
-  color: #64748B; /* Gray */
+  color: #64748B;
   font-size: 14px;
+}
+
+.request-employee {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6366f1 !important;
+  margin-bottom: 2px;
 }
 
 .btn-delete {
@@ -98,3 +105,17 @@ h3 {
 .btn-delete:hover {
   background-color: #fff7ed;
 }
+
+.status {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.status-pending  { background: #fef3c7; color: #92400e; }
+.status-approved { background: #d1fae5; color: #065f46; }
+.status-rejected { background: #fee2e2; color: #991b1b; }

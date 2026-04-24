@@ -1,8 +1,11 @@
 import { Router } from "express";
+import { clerkMiddleware } from "@clerk/express"; 
 import * as leaveController from "../controllers/leaveController";
 import { validateLeave } from "../middleware/validateLeave";
 
 const router = Router();
+
+router.use(clerkMiddleware());
 
 // GET    /api/leave        
 router.get("/", leaveController.getAll);
