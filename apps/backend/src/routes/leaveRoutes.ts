@@ -1,20 +1,22 @@
 import { Router } from "express";
+import { clerkMiddleware } from "@clerk/express"; 
 import * as leaveController from "../controllers/leaveController";
 import { validateLeave } from "../middleware/validateLeave";
-import { requireAuth } from '@clerk/express';
 
 const router = Router();
 
+router.use(clerkMiddleware());
+
 // GET    /api/leave        
-router.get("/", requireAuth(), leaveController.getAll);
+router.get("/", leaveController.getAll);
 
 // POST   /api/leave        
-router.post("/", requireAuth(), validateLeave, leaveController.create);
+router.post("/", validateLeave, leaveController.create);
 
 // PATCH  /api/leave/:id/status
-router.patch("/:id/status", requireAuth(), leaveController.updateStatus);
+router.patch("/:id/status", leaveController.updateStatus);
 
 // DELETE /api/leave/:id 
-router.delete("/:id", requireAuth(), leaveController.remove);
+router.delete("/:id", leaveController.remove);
 
 export default router;

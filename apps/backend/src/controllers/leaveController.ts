@@ -1,15 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import * as leaveService from "../services/leaveService";
+import { getAuth } from "@clerk/express"; 
 
 /**
  * GET /api/leave
- * 🛡️ Updated for Sprint 5: Only return leaves for the logged-in user.
  */
 export async function getAll(req: Request, res: Response, next: NextFunction) {
     try {
-        const clerkUserId = (req as any).auth.userId; 
+        const { userId } = getAuth(req); 
+        
+        if (!userId) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
 
-        const leaves = await leaveService.getAllLeaveRequests(clerkUserId);
+        const leaves = await leaveService.getAllLeaveRequests(userId);
         res.json(leaves);
     } catch (err) {
         next(err);
@@ -18,15 +22,18 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 /**
  * POST /api/leave
- * Updated for Sprint 5: Create request tied to the logged-in user.
  */
 export async function create(req: Request, res: Response, next: NextFunction) {
     try {
-        const clerkUserId = (req as any).auth.userId;
+        const { userId } = getAuth(req); 
+        if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+        console.log("My Clerk is :", userId);
+
         const { startDate, endDate, type, reason } = req.body; 
         
         const leave = await leaveService.createLeaveRequest({
-            clerkUserId, 
+            clerkUserId: userId, 
             startDate,
             endDate,
             type,
@@ -54,14 +61,15 @@ export async function updateStatus(req: Request, res: Response, next: NextFuncti
 
 /**
  * DELETE /api/leave/:id
- * 🛡️ Updated for Sprint 5: Ensure only the user who created it can delete it.
  */
 export async function remove(req: Request, res: Response, next: NextFunction) {
     try {
-        const clerkUserId = (req as any).auth.userId;
+        const { userId } = getAuth(req);
+        if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
         const id = parseInt(req.params.id);
         
-        await leaveService.deleteLeaveRequest(id, clerkUserId); 
+        await leaveService.deleteLeaveRequest(id, userId); 
         res.json({ message: "Leave request deleted." });
     } catch (err) {
         next(err);
